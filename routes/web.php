@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('test');
+Route::get('/getUsers',[ChatController::class, 'getUsers'])->name('chat.getUsers');
+Route::get('/chat/messages/{id}', [ChatController::class, 'getMessages'])->name('chat.getMessages');
+Route::get('/chat/user/lastMessage/{id}', [ChatController::class, 'getLastMessage'])->name('chat.getLastMessage');
+Route::post('/chat/message/send',[MessageController::class, 'store'])->name('chat.sendMessage');
