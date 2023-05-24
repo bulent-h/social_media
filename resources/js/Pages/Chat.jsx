@@ -89,7 +89,7 @@ export default function Chat(auth) {
                                 {/* Right Side of View */}
                                 <div className="w-2/3 border flex flex-col border-none" style={{ minWidth: '30em' }}>
                                     {/* Message Container */}
-                                    {/* <MessageContainer currentUserChat={currentUserChat} auth={auth} messages={messages} /> */}
+                                    <MessageContainer currentUserChat={currentUserChat} auth={auth} messages={messages} />
                                 </div>
                             </div>
                         </div>
