@@ -40,7 +40,7 @@ const Sidebar = () => {
                     </div>
                     
                     <div>
-                        <Link href="/" className="group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold">
+                        <Link href="/chat" className="group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold">
                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
