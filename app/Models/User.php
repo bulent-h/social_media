@@ -65,5 +65,96 @@ class User extends Authenticatable
 
     }
 
+    public function friendsOfMine()
+    {
+        return $this->belongsToMany(User::class, 'friendships', 'requester', 'user_requested')
+                    ->withPivot('status')
+                    ->wherePivot('status', '=', 1)  // where status is Accepted
+                    ->withTimestamps();
+    }
+
+    // who added me
+    public function friendOf()
+    {
+        return $this->belongsToMany(User::class, 'friendships', 'user_requested', 'requester')
+                    ->withPivot('status')
+                    ->wherePivot('status', '=', 1)  // where status is Accepted
+                    ->withTimestamps();
+    }
+
+    // accessor allowing you call $user->friends
+    public function getFriendsAttribute()
+    {
+        if ( ! array_key_exists('friends', $this->relations)) $this->loadFriends();
+
+        return $this->getRelation('friends');
+    }
+
+    protected function loadFriends()
+    {
+        if ( ! array_key_exists('friends', $this->relations))
+        {
+            $friends = $this->mergeFriends();
+
+            $this->setRelation('friends', $friends);
+        }
+    }
+
+    protected function mergeFriends()
+    {
+        if($temp = $this->friendsOfMine)
+            return $temp->merge($this->friendOf);
+        else
+            return $this->friendOf;
+    }
+
+    public function addFriend(User $user)
+    {
+        $this->friendsOfMine()->attach($user->id);
+    }
+
+    // Accepting a friend request
+    public function acceptFriend(User $user)
+    {
+        $this->friendRequests()->where('requester', $user->id)->first()->pivot
+            ->update([
+            'status' => 1,
+        ]);
+    }
+
+    // Denying a friend request
+    public function denyFriend(User $user)
+    {
+        $this->friendRequests()->where('requester', $user->id)->first()->pivot
+            ->update([
+            'status' => 2,
+        ]);
+    }
+
+    // Removing a friend
+    public function removeFriend(User $user)
+    {
+        $this->friendsOfMine()->detach($user->id);
+        $this->friendOf()->detach($user->id);
+    }
+
+    // Check if user is friends with another user
+    public function isFriendsWith(User $user)
+    {
+        return (bool) $this->friends()->where('id', $user->id)->count();
+    }
+
+    // Check if there's a pending friend request from another user
+    public function hasPendingFriendRequestFrom(User $user)
+    {
+        return (bool) $this->friendRequests()->where('id', $user->id)->count();
+    }
+
+    // Check if a friend request has been sent to another user
+    public function hasSentFriendRequestTo(User $user)
+    {
+        return (bool) $this->friendRequestsSent()->where('id', $user->id)->count();
+    }
+
 
 }
