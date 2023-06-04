@@ -1,50 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const SearchBar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isFocused, setIsFocused] = useState(false);
-
+const SearchBar = ({ searchTerm, onSearchTermChange, className }) => {
   const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
+    onSearchTermChange(event.target.value);
   };
 
-  const handleInputFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleInputBlur = () => {
-    setIsFocused(false);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSearch(searchTerm);
-  };
+  const searchBarClasses = className ? `search-bar ${className}` : 'search-bar';
 
   return (
-    <form onSubmit={handleSubmit} className="search-bar">
-      <div className="relative w-52">
+    <div className={searchBarClasses}>
+      <div className="relative">
         <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
           onChange={handleInputChange}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          className="ml-4 py-1 pl-3 pr-9 w-full bg-opacity-60 drop-shadow-2xl appearance-none overflow-hidden text-center rounded-full bg-gray-300 text-black border-gray-300 focus:ring-purple-700 shadow-sm"
+          className="py-1 pl-3 pr-9 w-full bg-opacity-60 drop-shadow-2xl appearance-none overflow-hidden text-center rounded-full bg-gray-300 text-black border-gray-300 focus:ring-purple-700 shadow-sm"
         />
         <button
-          type="submit"
-          className={`absolute top-0 right-0 flex items-center justify-center h-full py-1 px-1 ${
-            isFocused ? 'text-purple-700' : 'text-gray-400'
-          }`}
+          type="button"
+          className="absolute top-0 right-0 flex items-center justify-center h-full py-1 pr-6 text-gray-400"
         >
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </div>
-    </form>
+    </div>
   );
 };
 

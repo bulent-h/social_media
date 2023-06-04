@@ -40,7 +40,7 @@ export default function AuthenticatedLayout({ user, children }) {
 
   return (
     <div className="flex h-screen bg-gray-200 justify-center">
-      <div className="flex w-2/3">
+      <div className="flex w-3/4">
         <Sidebar />
         <div className="flex flex-col flex-1 overflow-hidden">
           <div className="flex-1 overflow-y-auto scrollbar-custom bg-white">{children}</div>

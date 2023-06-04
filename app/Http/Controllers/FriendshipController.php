@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friendship;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,9 +10,7 @@ class FriendshipController extends Controller
 {
     public function sendFriendRequest(User $user)
     {
-        // Get currently authenticated user
         $authUser = auth()->user();
-        // Use the sendFriendRequest method from User model
         $authUser->sendFriendRequest($user);
 
         return redirect()->back();
@@ -31,13 +30,23 @@ class FriendshipController extends Controller
         return redirect()->back();
     }
 
-    public function removeFriend(User $user)
-    {
-        $authUser = auth()->user();
-        $authUser->removeFriend($user);
+    public function removeFriend(Request $request, $user_requested)
+{
+    $user = User::findOrFail($user_requested);
+    
+    // Delete the friendship where either requester = auth.id and user_requested = user.id 
+    // OR requester = user.id and user_requested = auth.id
+    Friendship::where([
+        ['requester', '=', $request->user()->id],
+        ['user_requested', '=', $user->id]
+    ])->orWhere([
+        ['requester', '=', $user->id],
+        ['user_requested', '=', $request->user()->id]
+    ])->delete();
 
-        return redirect()->back();
-    }
+    return back()->with('status', 'Friendship removed.');
+}
+
 
     public function destroy(User $recipient)
     {
@@ -46,5 +55,4 @@ class FriendshipController extends Controller
 
         return redirect()->back();
     }
-
 }

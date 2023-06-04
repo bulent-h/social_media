@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('requester');
             $table->bigInteger('user_requested');
-            $table->tinyInteger('status')->default(0); // 0 for pending, 1 for accepted, 2 for rejected
+            $table->tinyInteger('status')->default(0); // 0 for pending, 1 for accepted
             $table->timestamps();
         });
     }

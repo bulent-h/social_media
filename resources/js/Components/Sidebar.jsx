@@ -1,9 +1,15 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage, useRemember } from '@inertiajs/react';
 import ApplicationLogoColored from './ApplicationLogoColored';
 import SearchBar from './SearchBar';
+import { Inertia } from '@inertiajs/inertia';
+import { FaUser, FaSearch } from 'react-icons/fa';
 
 const Sidebar = () => {
   const { url } = usePage();
+
+  const handleLogout = () => {
+    Inertia.post('/logout');
+  };
 
   return (
     <div className="relative flex min-h-screen space-y-6">
@@ -15,17 +21,16 @@ const Sidebar = () => {
           </Link>
         </div>
 
-        <div>
-          <SearchBar />
+        <div className="flex justify-center">
+          <SearchBar className='w-52' />
         </div>
 
         <div>
           <div>
             <Link
               href="/home"
-              className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${
-                url === '/home' ? 'bg-purple-700 text-white' : ''
-              }`}
+              className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${url === '/home' ? 'bg-purple-700 text-white' : ''
+                }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -48,9 +53,8 @@ const Sidebar = () => {
           <div>
             <Link
               href="/"
-              className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${
-                url === '/create' ? 'bg-purple-700 text-white' : ''
-              }`}
+              className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${url === '/create' ? 'bg-purple-700 text-white' : ''
+                }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -73,9 +77,8 @@ const Sidebar = () => {
           <div>
             <Link
               href="/chat"
-              className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${
-                url === '/chat' ? 'bg-purple-700 text-white' : ''
-              }`}
+              className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${url === '/chat' ? 'bg-purple-700 text-white' : ''
+                }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -99,37 +102,36 @@ const Sidebar = () => {
 
           <div>
             <Link
-              href="/profile"
-              className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${
-                url === '/profile' ? 'bg-purple-700 text-white' : ''
-              }`}
+              href="/find-friends"
+              className={`group flex items-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${url === '/find-friends' ? 'bg-purple-700 text-white' : ''
+                }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="icon icon-tabler icon-tabler-user"
+                className="icon icon-tabler icon-tabler-search"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
-                strokeWidth="2" 
+                strokeWidth="2"
                 stroke="currentColor"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M12 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                <circle cx="10" cy="10" r="7" />
+                <line x1="21" y1="21" x2="15" y2="15" />
               </svg>
-              <span className="group-hover:text-white">Profile</span>
+              <span className="group-hover:text-white">Find Friends</span>
             </Link>
           </div>
+
 
           <div>
             <Link
               href="/"
-              className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${
-                url === '/help' ? 'bg-purple-700 text-white' : ''
-              }`}
+              className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${url === '/help' ? 'bg-purple-700 text-white' : ''
+                }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -147,6 +149,36 @@ const Sidebar = () => {
               </svg>
               <span className="group-hover:text-white">Help Center</span>
             </Link>
+          </div>
+
+          <div>
+            <button
+              className="group flex items-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold"
+              onClick={handleLogout}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-logout"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M14 8v-2a2 2 0 0 1 2 -2h2" />
+                <path d="M7 15a2 2 0 0 1 -2 -2v-2" />
+                <path d="M21 15h-14a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h14" />
+                <path d="M7 20h1" />
+                <path d="M12 20h1" />
+                <path d="M17 20h1" />
+                <path d="M9 16l2 2l-2 2" />
+              </svg>
+              <span className="group-hover:text-white">Logout</span>
+            </button>
           </div>
         </div>
       </div>
