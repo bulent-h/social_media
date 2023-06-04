@@ -8,6 +8,8 @@ use App\User;
 
 class Friendship extends Model
 {
+
+    protected $table = 'friendships'; // Add this line to specify the table name
     protected $fillable = ['requester', 'user_requested', 'status'];
 
     public function requester()
@@ -20,5 +22,5 @@ class Friendship extends Model
         return $this->belongsTo(User::class, 'user_requested');
     }
 
-    
+
 }

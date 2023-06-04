@@ -31,7 +31,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        if(($request->user()->avatar!=null) && ($request->avatar==null) ){
+        if (($request->user()->avatar != null) && ($request->avatar == null)) {
 
             Storage::disk('public')->delete($request->user()->avatar);
             $request->user()->avatar = null;
@@ -44,12 +44,12 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        if($request->hasFile('file')){
-            if($request->user()->avatar){
+        if ($request->hasFile('file')) {
+            if ($request->user()->avatar) {
                 Storage::disk('public')->delete($request->user()->avatar);
 
             }
-            $request->user()->avatar =  $request->file('file')->store('image','public');
+            $request->user()->avatar = $request->file('file')->store('image', 'public');
         }
 
         $request->user()->save();
@@ -75,5 +75,12 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect('/login'); // Redirect to the desired page after logout
     }
 }
