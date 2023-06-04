@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\FriendshipController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,21 +30,32 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/home', function () {
+    return Inertia::render('Home');
+})->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/find-friends', [UserController::class, 'findFriends'])->name('find-friends');
+
+    Route::post('/friendship/send/{user}', [FriendshipController::class, 'sendFriendRequest'])->name('sendFriendRequest');
+    Route::post('/friendship/accept/{user}', [FriendshipController::class, 'acceptFriendRequest']);
+    Route::post('/friendship/reject/{user}', [FriendshipController::class, 'rejectFriendRequest']);
+    Route::post('/friendship/delete/{recipient}', [FriendshipController::class, 'destroy']);
+    Route::delete('/friendship/remove/{user}', [FriendshipController::class, 'removeFriend']);
+
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('test');
-Route::get('/getUsers',[ChatController::class, 'getUsers'])->name('chat.getUsers');
+Route::get('/getUsers', [ChatController::class, 'getUsers'])->name('chat.getUsers');
 Route::get('/chat/messages/{id}', [ChatController::class, 'getMessages'])->name('chat.getMessages');
 Route::get('/chat/user/lastMessage/{id}', [ChatController::class, 'getLastMessage'])->name('chat.getLastMessage');
-Route::post('/chat/message/send',[MessageController::class, 'store'])->name('chat.sendMessage');
+Route::post('/chat/message/send', [MessageController::class, 'store'])->name('chat.sendMessage');
