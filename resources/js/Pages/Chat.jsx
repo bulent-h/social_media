@@ -3,6 +3,7 @@ import ChatList from '@/Pages/Chat/ChatList';
 import MessageContainer from '@/Pages/Chat/MessageContainer';
 import { useEffect, useState, createContext } from 'react';
 import { ChatContext } from '@/Pages/Chat/ChatContext';
+import Pusher from 'pusher-js';
 
 export default function Chat(auth) {
 
@@ -42,8 +43,8 @@ export default function Chat(auth) {
     }
     function addToMessageContainer(e) {
         console.log(e);
-        console.log(e.sender_id +" == "+ currentUserChat.id);
-        console.log(e.receiver_id +" == "+ currentUserChat.id);
+        console.log(e.sender_id + " == " + currentUserChat.id);
+        console.log(e.receiver_id + " == " + currentUserChat.id);
 
         if (e.sender_id == currentUserChat.id) {
             var tmp = [...messages, e];
@@ -58,6 +59,7 @@ export default function Chat(auth) {
             setMessages(() => tmp);
         }
     }
+
     useEffect(() => {
 
         const channel = Echo.private('chat.' + auth.auth.user.id);
@@ -65,12 +67,14 @@ export default function Chat(auth) {
             addToMessageContainer(e.message);
         });
 
+
         if (users == undefined) {
             setup();
         }
         return () => {
             channel.stopListening('NewMessage');
         }
+
 
     }, [currentUserChat, messages]);
 

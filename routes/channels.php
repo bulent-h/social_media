@@ -31,3 +31,6 @@ Broadcast::channel('chat.{id}', function ($user,$id) {
     // }
     return true;
 });
+Broadcast::channel('user-status', function ($user) {
+    return ['id' => $user->id];
+});

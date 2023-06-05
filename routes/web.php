@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\FriendshipController;
+use App\Http\Controllers\UserStatusController;
 
 
 /*
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/users/{user}', [UserController::class, 'show'])->name('user.show');
+    Route::post('/user/status', [UserStatusController::class, 'update'])->name('status.update');
+
     Route::get('/find-friends', [UserController::class, 'findFriends'])->name('find-friends');
 
     Route::post('/friendship/send/{user}', [FriendshipController::class, 'sendFriendRequest'])->name('sendFriendRequest');

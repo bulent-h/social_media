@@ -91,7 +91,6 @@ export default function MessageContainer({ messages }) {
         }
 
     }, [currentUserChat, messages]);
-    console.log(currentUserChat)
     return (
         // <!--chat Header -->
         <>
@@ -104,7 +103,7 @@ export default function MessageContainer({ messages }) {
 
                         {/* <div className="bg-gray-200 dark:bg-gray-700 h-12 w-12 rounded-full"></div> */}
                         {
-                            currentUserChat?.avatar ?
+                            currentUserChat?.avatar?
                                 <div
                                     className=" bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full"
                                     style={{ backgroundImage: 'url(' + 'storage/' + currentUserChat?.avatar + ')' }}>

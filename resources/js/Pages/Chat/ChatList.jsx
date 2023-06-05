@@ -42,10 +42,19 @@ export default function ChatList({ users, handleSelectChat }) {
                         {/* <img className="bg-gray-200 dark:bg-gray-700 h-12 w-12 rounded-full " /> */}
                         {/* <img className="h-12 w-12 rounded-full" /> */}
                         {/* <div className="bg-gray-200 dark:bg-gray-700 h-12 w-12 rounded-full"></div> */}
-                        <div
+                        {/* <div
                             className=" bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full"
                             style={{ backgroundImage: 'url(' + 'storage/' + auth.auth.user.avatar + ')' }}>
-                        </div>
+                        </div> */}
+                        {
+                            auth.auth.user?.avatar?
+                                <div
+                                    className=" bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full"
+                                    style={{ backgroundImage: 'url(' + 'storage/' + auth.auth.user?.avatar + ')' }}>
+                                </div>
+                                :
+                                <div className="bg-gray-200 dark:bg-gray-700 h-12 w-12 rounded-full"></div>
+                        }
                     </div>
 
                 </Link>
