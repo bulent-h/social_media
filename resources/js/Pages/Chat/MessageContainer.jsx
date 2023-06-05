@@ -7,6 +7,7 @@ import SearchDropdown from '@/Components/SearchDropdown';
 import TextInput from "@/Components/TextInput";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { Link } from '@inertiajs/react';
 
 dayjs.extend(relativeTime);
 export default function MessageContainer({ messages }) {
@@ -44,13 +45,13 @@ export default function MessageContainer({ messages }) {
                     >
                         {
                             (auth.auth.user.id == message.sender_id) ?
-                            <p className="text-sm text-blue-300 truncate w-40">
-                                {auth.auth.user.name}
-                            </p>
-                        :
-                        <p className="text-sm text-blue-300 truncate w-40">
-                            {currentUserChat.name}
-                        </p>
+                                <p className="text-sm text-blue-300 truncate w-40">
+                                    {auth.auth.user.name}
+                                </p>
+                                :
+                                <p className="text-sm text-blue-300 truncate w-40">
+                                    {currentUserChat.name}
+                                </p>
                         }
                         <p className="text-sm mt-1 text-gray-800 dark:text-gray-200">
                             {message.text_content}
@@ -69,8 +70,15 @@ export default function MessageContainer({ messages }) {
 
         console.log(e.target.value);
     }
+    async function handleBlockUser() {
+        await axios.post(route('user.block', { user: currentUserChat }))
+            .then((data) => {
 
+            }).catch(err => {
+                console.error(err);
+            })
 
+    }
 
     useEffect(() => {
 
@@ -83,7 +91,7 @@ export default function MessageContainer({ messages }) {
         }
 
     }, [currentUserChat, messages]);
-
+    console.log(currentUserChat)
     return (
         // <!--chat Header -->
         <>
@@ -169,20 +177,27 @@ export default function MessageContainer({ messages }) {
                                     </svg>
                                 </div>
                             </DropdownMenu.Trigger>
-                            <DropdownMenu.Content contentClasses='py-2'>
-                                <DropdownMenu.Link className="flex justify-center px-12">
-                                    View Profile
-                                </DropdownMenu.Link>
-                                <DropdownMenu.Link className="flex justify-center px-12">
-                                    Mute Notifications
-                                </DropdownMenu.Link>
-                                <DropdownMenu.Link className="flex justify-center px-12">
-                                    Block User
-                                </DropdownMenu.Link>
-                                <DropdownMenu.Link className="flex justify-center px-12">
-                                    Delete Chat
-                                </DropdownMenu.Link>
-                            </DropdownMenu.Content>
+                            {(currentUserChat) &&
+                                <DropdownMenu.Content contentClasses='py-2'>
+                                    <a href={route('user.show', { user: currentUserChat })}  >
+                                        <DropdownMenu.Link className="flex justify-center px-12">
+                                            View Profile
+                                        </DropdownMenu.Link>
+                                    </a>
+                                    <DropdownMenu.Link className="flex justify-center px-12">
+                                        Mute Notifications
+                                    </DropdownMenu.Link>
+                                    <DropdownMenu.Link onClick={handleBlockUser}
+                                        className="flex justify-center px-12">
+                                        Block User
+                                    </DropdownMenu.Link>
+
+                                    <DropdownMenu.Link className="flex justify-center px-12">
+                                        Delete Chat
+                                    </DropdownMenu.Link>
+                                </DropdownMenu.Content>
+                            }
+
                         </DropdownMenu>
                     </div>
 

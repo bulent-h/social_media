@@ -50,8 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/friendship/delete/{recipient}', [FriendshipController::class, 'destroy']);
     Route::delete('/friendship/remove/{user}', [FriendshipController::class, 'removeFriend']);
 
-    Route::post('/block/{user}', [BlockController::class, 'block']);
-    Route::delete('/unblock/{user}', [BlockController::class, 'unblock']);
+    Route::post('/block/{user}', [BlockController::class, 'block'])->name('user.block');
+    Route::delete('/unblock/{user}', [BlockController::class, 'unblock'])->name('user.unblock');
 
 });
 
