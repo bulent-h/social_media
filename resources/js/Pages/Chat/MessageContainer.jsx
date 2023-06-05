@@ -1,6 +1,6 @@
 import MessageItem from "@/Pages/Chat/MessageItem";
 import MessageInput from '@/Pages/Chat/MessageInput';
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, useRef } from 'react'
 import { ChatContext } from '@/Pages/Chat/ChatContext';
 import DropdownMenu from '@/Components/DropdownMenu';
 import SearchDropdown from '@/Components/SearchDropdown';
@@ -103,7 +103,6 @@ export default function MessageContainer({ messages }) {
                                 </div>
                                 :
                                 <div className="bg-gray-200 dark:bg-gray-700 h-12 w-12 rounded-full"></div>
-
                         }
 
                     </div>

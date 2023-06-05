@@ -1,6 +1,6 @@
 import { Link, usePage, useRemember } from '@inertiajs/react';
-import ApplicationLogoColored from './ApplicationLogoColored';
-import SearchBar from './SearchBar';
+import ApplicationLogoColored from '@/Components/ApplicationLogoColored';
+import SearchBar from '@/Components/SearchBar';
 import { Inertia } from '@inertiajs/inertia';
 import { FaUser, FaSearch } from 'react-icons/fa';
 
