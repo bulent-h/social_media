@@ -125,8 +125,8 @@ export default function Register() {
                     <InputError message={errors.password_confirmation} className="mt-2" />
                 </div>
 
-                
-                    
+
+
                     <div className="mt-6">
                         <div className="flex items-center justify-center ">
                             <PrimaryButton className="px-4 py-2" disabled={processing}>
@@ -145,7 +145,7 @@ export default function Register() {
                     </div>
 
 
-                
+
 
             </form>
         </GuestLayout>

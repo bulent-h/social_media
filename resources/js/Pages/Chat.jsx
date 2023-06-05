@@ -42,10 +42,10 @@ export default function Chat(auth) {
     }
     function addToMessageContainer(e) {
         console.log(e);
-        console.log(e.sender_user_id +" == "+ currentUserChat.id);
-        console.log(e.receiver_user_id +" == "+ currentUserChat.id);
+        console.log(e.sender_id +" == "+ currentUserChat.id);
+        console.log(e.receiver_id +" == "+ currentUserChat.id);
 
-        if (e.sender_user_id == currentUserChat.id) {
+        if (e.sender_id == currentUserChat.id) {
             var tmp = [...messages, e];
             setMessages(() => tmp);
             // console.log(e.message);
@@ -53,7 +53,7 @@ export default function Chat(auth) {
 
             // setMessages([...messages,e])
         }
-        if (e.receiver_user_id == currentUserChat.id) {
+        if (e.receiver_id == currentUserChat.id) {
             var tmp = [...messages, e];
             setMessages(() => tmp);
         }

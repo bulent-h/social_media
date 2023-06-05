@@ -6,6 +6,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Message;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -19,19 +25,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function sentMessage()
-    {
-        return $this->hasMany(Message::class, 'sender_id');
+    public function sentMessage(){
+        return $this->hasMany(Message::class,'sender_id','id');
     }
 
-    public function receivedMessage()
-    {
-        return $this->hasMany(Message::class, 'receiver_id');
+    public function receivedMessage(){
+        return $this->hasMany(Message::class,'receiver_id' ,'id');
     }
+    public function bothMessage($sender_id,$receiver_id){
 
-    public function bothMessage()
-    {
-        return $this->sentMessage->concat($this->receivedMessage);
+        return $users = DB::table('messages')
+                ->where([['sender_id', $sender_id,],['receiver_id', $receiver_id]])
+                ->orWhere([['sender_id', $receiver_id],['receiver_id',  $sender_id]]);
     }
 
     public function friendRequestsSent()

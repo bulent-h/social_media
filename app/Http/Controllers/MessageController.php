@@ -40,8 +40,8 @@ class MessageController extends Controller
 
 
         $message = new Message;
-        $message->sender_user_id=$request->user()->id;
-        $message->receiver_user_id=(int)$request->receiver_id;
+        $message->sender_id=$request->user()->id;
+        $message->receiver_id=(int)$request->receiver_id;
         $message->text_content=$request->text;
 
 
@@ -91,7 +91,7 @@ class MessageController extends Controller
     //     $message=Message::where('id',$request->message_id)->get();
 
 
-    //     if($request->user()->id == $message[0]->sender_user_id){
+    //     if($request->user()->id == $message[0]->sender_id){
     //         $message[0]->delete();
     //         return "deletion done";
     //     }

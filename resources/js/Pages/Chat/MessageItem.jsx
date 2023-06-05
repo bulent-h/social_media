@@ -17,7 +17,7 @@ export default function MessageItem({ message }) {
     return (
         <>
             {
-                (auth.auth.user.id == message.sender_user_id) ?
+                (auth.auth.user.id == message.sender_id) ?
                     <div className="flex justify-end mb-2 ">
                         <div className="rounded-xl py-2 px-3 bg-blue-100 dark:bg-gray-900 drop-shadow-xl" style={{ maxWidth: '45%', filter: 'dropShadow(0 7px 3px rgb(0 0 0 / 0.30))' }}>
                             <div className="flex justify-between">
@@ -41,7 +41,7 @@ export default function MessageItem({ message }) {
                             </div>
                             <p className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
                                 {
-                                dayjs(message.updated_at).fromNow()
+                                    dayjs(message.updated_at).fromNow()
                                 }
                             </p>
                         </div>
@@ -60,7 +60,7 @@ export default function MessageItem({ message }) {
                                 <img alt="" />
                             </div>
                             <p className="text-right text-xs text-gray-500 mt-1 dark:text-gray-400">
-                                {message.updated_at}
+                                {dayjs(message.updated_at).fromNow()}
                             </p>
                         </div>
                     </div>

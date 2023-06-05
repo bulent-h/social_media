@@ -22,7 +22,6 @@ export default function MessageInput() {
 
     useEffect(() => {
         handleReceiverChange();
-        // console.log(currentUserChat);
 
 
     }, [currentUserChat])
