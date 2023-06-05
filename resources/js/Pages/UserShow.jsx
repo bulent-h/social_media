@@ -4,10 +4,16 @@ import { Inertia } from '@inertiajs/inertia';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const UserShow = () => {
-    const { user, auth, authUserSentFriendRequest, authUserReceivedFriendRequest, isFriends } = usePage().props;
+    const { user, auth, authUserSentFriendRequest, authUserReceivedFriendRequest, isFriends, authUserHasBlocked, errors } = usePage().props;
+    const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
     const handleAddFriend = () => {
-        Inertia.post(`/friendship/send/${user.id}`);
+        Inertia.post(`/friendship/send/${user.id}`).then(() => {
+            // Check if there's an error and display it
+            if(errors.block) {
+                alert(errors.block);
+            }
+        });
     };
 
     const handleRemoveFriend = () => {
@@ -15,7 +21,7 @@ const UserShow = () => {
     };
 
     const handleCancelFriendRequest = () => {
-        Inertia.post(`/friendship/cancel/${user.id}`);
+        Inertia.post(`/friendship/delete/${user.id}`);
     };
 
     const handleAcceptFriendRequest = () => {
@@ -25,6 +31,23 @@ const UserShow = () => {
     const handleRejectFriendRequest = () => {
         Inertia.post(`/friendship/reject/${user.id}`);
     };
+
+    const handleBlockUser = () => {
+        Inertia.post(`/block/${user.id}`);
+    };
+
+    const handleUnblockUser = () => {
+        Inertia.delete(`/unblock/${user.id}`);
+    };
+
+    const handleOpenDropdown = () => {
+        setDropdownOpen(true);
+    };
+
+    const handleCloseDropdown = () => {
+        setDropdownOpen(false);
+    };
+
 
     return (
         <AuthenticatedLayout>
@@ -36,6 +59,23 @@ const UserShow = () => {
                 ></div>
                 <h1 className="text-2xl font-bold mb-2">{user.username}</h1>
                 <p className="text-lg mb-4">{user.name}</p>
+                <div className="relative inline-block text-left">
+                    <button type="button" className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 bg-gray-800 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none" id="options-menu" aria-haspopup="true" aria-expanded="true" onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}>
+                        •••
+                    </button>
+
+                    {dropdownOpen && (
+                        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                            <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                {authUserHasBlocked ? (
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={handleUnblockUser}>Unblock</a>
+                                ) : (
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={handleBlockUser}>Block</a>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
                 <div className="flex space-x-4">
                     {
                         auth.id === user.id ? (
@@ -74,14 +114,14 @@ const UserShow = () => {
                             >
                                 Remove Friend
                             </button>
-                        ) : (
-                            <button
-                                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-                                onClick={handleAddFriend}
-                            >
-                                Add Friend
-                            </button>
-                        )
+                        ) : authUserHasBlocked ? null : ( // <-- This line was added
+                        <button
+                            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                            onClick={handleAddFriend}
+                        >
+                            Add Friend
+                        </button>
+                    )
                     }
                 </div>
             </div>
