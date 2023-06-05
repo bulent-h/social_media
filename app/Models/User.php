@@ -78,7 +78,11 @@ class User extends Authenticatable
 
     public function sendFriendRequest(User $user)
     {
-        $this->friendRequestsSent()->attach($user->id, ['status' => 0]);
+        // Add check if this user has blocked the other user
+        if (!$this->isBlocking($user)) {
+            $this->friendRequestsSent()->attach($user->id, ['status' => 0]);
+        }
+        // You could add an else clause here to return an error if needed
     }
 
     public function acceptFriendRequest(User $user)
@@ -115,5 +119,26 @@ class User extends Authenticatable
     public function deleteFriendRequest(User $recipient)
     {
         $this->friendRequestsSent()->detach($recipient->id);
+    }
+
+    /*{blocking}*/
+    public function blocks()
+    {
+        return $this->hasMany(Block::class, 'blocker_id');
+    }
+
+    public function block(User $user)
+    {
+        return $this->blocks()->create(['blocked_id' => $user->id]);
+    }
+
+    public function unblock(User $user)
+    {
+        return $this->blocks()->where('blocked_id', $user->id)->delete();
+    }
+
+    public function isBlocking(User $user)
+    {
+        return $this->blocks()->where('blocked_id', $user->id)->exists();
     }
 }

@@ -9,12 +9,18 @@ use Illuminate\Http\Request;
 class FriendshipController extends Controller
 {
     public function sendFriendRequest(User $user)
-    {
-        $authUser = auth()->user();
-        $authUser->sendFriendRequest($user);
+{
+    $authUser = auth()->user();
 
+    // Add check if auth user has blocked the other user
+    if(!$authUser->isBlocking($user)) {
+        $authUser->sendFriendRequest($user);
         return redirect()->back();
     }
+    // Redirect with error message if the user is blocked
+    return redirect()->back()->withErrors(['block' => 'You have blocked this user.']);
+}
+
 
     public function acceptFriendRequest(User $user)
     {
