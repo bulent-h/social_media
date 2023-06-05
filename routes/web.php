@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlockController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -48,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/friendship/reject/{user}', [FriendshipController::class, 'rejectFriendRequest']);
     Route::post('/friendship/delete/{recipient}', [FriendshipController::class, 'destroy']);
     Route::delete('/friendship/remove/{user}', [FriendshipController::class, 'removeFriend']);
+
+    Route::post('/block/{user}', [BlockController::class, 'block']);
+    Route::delete('/unblock/{user}', [BlockController::class, 'unblock']);
 
 });
 
