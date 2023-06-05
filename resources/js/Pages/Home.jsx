@@ -6,7 +6,6 @@ export default function Home({ auth }) {
 
 
     const updateUserStatus = async (status) => {
-        console.log('updateUserStatus run')
         try {
             await axios.post(route('status.update'), { status });
             console.log('User status updated successfully');
@@ -16,21 +15,18 @@ export default function Home({ auth }) {
     };
 
     const handleBeforeUnload = (event) => {
-        console.log('beforeunload run')
         event.preventDefault();
         updateUserStatus('offline');
     };
     // Register the beforeunload event listener
     window.addEventListener('beforeunload', handleBeforeUnload);
 
-
     useEffect(() => {
-        console.log('mounted');
         updateUserStatus('online')
-        // const channelStatus = Echo.join('user-status');
-        // channelStatus.listen('UserStatusUpdated', function (data) {
-        //     console.log('User status updated:', data.user);
-        // });
+        const channelStatus = Echo.join('user-status');
+        channelStatus.listen('UserStatusUpdated', function (data) {
+            // console.log('User status updated:', data.user);
+        });
 
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
