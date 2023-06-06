@@ -38,9 +38,6 @@ Route::get('/home', function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/users/{user}', [UserController::class, 'show'])->name('user.show');
     Route::post('/user/status', [UserStatusController::class, 'update'])->name('status.update');
@@ -55,6 +52,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/block/{user}', [BlockController::class, 'block'])->name('user.block');
     Route::delete('/unblock/{user}', [BlockController::class, 'unblock'])->name('user.unblock');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 });
 
