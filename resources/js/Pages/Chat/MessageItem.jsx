@@ -54,21 +54,29 @@ export default function MessageItem({ message }) {
                                             {message.text_content}
                                         </p>
                                         {/* reply */}
-                                        {(message?.parent_id) &&
+                                        {(message?.parent) &&
                                             <div className="border rounded-xl bg-blue-50 dark:bg-gray-800 drop-shadow-xl border-gray-200 dark:border-gray-700 m-2">
                                                 <div className="m-2">
                                                     <div className="flex justify-between">
+                                                        {
+                                                            (auth.auth.user.id == message.parent.sender_id) ?
+                                                                <p className="text-sm text-blue-300 truncate w-40">
+                                                                    {auth.auth.user.name}
+                                                                </p>
+                                                                :
+                                                                <p className="text-sm text-blue-300 truncate w-40">
+                                                                    {currentUserChat.name}
+                                                                </p>
 
-                                                        <p className="text-sm text-blue-300 truncate w-40">
-                                                            {currentUserChat.name}
-                                                        </p>
+                                                        }
+
                                                     </div>
                                                     <p className="text-sm mt-1 text-gray-800 dark:text-gray-200">
-                                                        {message.text_content}
+                                                        {message.parent.text_content}
                                                     </p>
                                                     <p className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
                                                         {
-                                                            dayjs(message.updated_at).fromNow()
+                                                            dayjs(message.parent.updated_at).fromNow()
                                                         }
                                                     </p>
                                                 </div>
@@ -127,6 +135,37 @@ export default function MessageItem({ message }) {
                                 <p className="text-sm mt-1 text-gray-800 dark:text-gray-200">
                                     {message.text_content}
                                 </p>
+                                {/* reply */}
+                                {(message?.parent) &&
+                                    <div className="border rounded-xl bg-blue-50 dark:bg-gray-800 drop-shadow-xl border-gray-200 dark:border-gray-700 m-2">
+                                        <div className="m-2">
+                                            <div className="flex justify-between">
+                                                {
+                                                    (auth.auth.user.id == message.parent.sender_id) ?
+                                                        <p className="text-sm text-blue-300 truncate w-40">
+                                                            {auth.auth.user.name}
+                                                        </p>
+                                                        :
+                                                        <p className="text-sm text-blue-300 truncate w-40">
+                                                            {currentUserChat.name}
+                                                        </p>
+
+                                                }
+
+                                            </div>
+                                            <p className="text-sm mt-1 text-gray-800 dark:text-gray-200">
+                                                {message.parent.text_content}
+                                            </p>
+                                            <p className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                {
+                                                    dayjs(message.parent.updated_at).fromNow()
+                                                }
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                }
+                                {/* end of reply */}
                                 <div >
                                     <img alt="" />
                                 </div>
