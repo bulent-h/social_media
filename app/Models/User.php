@@ -34,9 +34,26 @@ class User extends Authenticatable
     }
     public function bothMessage($sender_id,$receiver_id){
 
-        return $users = DB::table('messages')
-                ->where([['sender_id', $sender_id,],['receiver_id', $receiver_id]])
-                ->orWhere([['sender_id', $receiver_id],['receiver_id',  $sender_id]]);
+        // return $messages = DB::table('messages')
+        //         ->where([['sender_id', $sender_id,],['receiver_id', $receiver_id]])
+        //         ->orWhere([['sender_id', $receiver_id],['receiver_id',  $sender_id]]);
+
+
+        $senderId = $sender_id; // Replace with the actual sender's ID
+        $receiverId = $receiver_id; // Replace with the actual receiver's ID
+
+        $messages = Message::with('parent')
+        ->where(function ($query) use ($senderId, $receiverId) {
+            $query->where('sender_id', $senderId)
+                ->where('receiver_id', $receiverId);
+        })
+        ->orWhere(function ($query) use ($senderId, $receiverId) {
+            $query->where('sender_id', $receiverId)
+                ->where('receiver_id', $senderId);
+        })
+        ->get();
+
+        return $messages;
     }
 
     public function friendRequestsSent()

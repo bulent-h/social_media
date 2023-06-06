@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('parent_id')->nullable();
 
             $table->integer('sender_id');
             $table->integer('receiver_id');
@@ -21,11 +22,10 @@ return new class extends Migration
             $table->text('text_content');
             $table->text('media_content_path')->nullable();
 
-            // $table->boolean('is_edited')->nullable();
-            // $table->boolean('is_deleted')->nullable();
 
-            // $table->integer('replied_message_id')->nullable();
-            // $table->integer('replied_user_id')->nullable();
+            $table->boolean('is_edited')->nullable();
+            $table->boolean('is_deleted')->nullable();
+
 
             $table->timestamps();
         });

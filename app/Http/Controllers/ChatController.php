@@ -25,7 +25,7 @@ class ChatController extends Controller
     {
 
         $user = User::find($request->user()->id);
-        $messages = $user->bothMessage($user->id,$id)->get();
+        $messages = $user->bothMessage($user->id,$id);
 
         return  $messages;
     }

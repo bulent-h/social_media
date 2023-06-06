@@ -66,3 +66,4 @@ Route::get('/getUsers', [ChatController::class, 'getUsers'])->name('chat.getUser
 Route::get('/chat/messages/{id}', [ChatController::class, 'getMessages'])->name('chat.getMessages');
 Route::get('/chat/user/lastMessage/{id}', [ChatController::class, 'getLastMessage'])->name('chat.getLastMessage');
 Route::post('/chat/message/send', [MessageController::class, 'store'])->name('chat.sendMessage');
+Route::post('/message/delete/{message}', [MessageController::class, 'destroy'])->name('message.delete');

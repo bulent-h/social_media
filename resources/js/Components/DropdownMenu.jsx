@@ -18,14 +18,14 @@ const Dropdown = ({ children }) => {
     );
 };
 
-const Trigger = ({ children }) => {
+const Trigger = ({ children , contentClasses='bg-black opacity-50' }) => {
     const { open, setOpen, toggleOpen } = useContext(DropDownContext);
 
     return (
         <>
             <div onClick={toggleOpen}>{children}</div>
 
-            {open && <div className="fixed inset-0 z-40 bg-black opacity-50" onClick={() => setOpen(false)}></div>}
+            {open && <div className={`fixed inset-0 z-40 `+  contentClasses } onClick={() => setOpen(false)}></div>}
         </>
     );
 };
@@ -60,10 +60,10 @@ const Content = ({ align = 'right' , contentClasses = '', children }) => {
                 leaveTo="transform opacity-0 scale-95"
             >
                 <div
-                    className={`absolute z-50 mt-2 rounded-xl shadow-lg overflow-hidden w-max ${alignmentClasses} `}
+                    className={`absolute z-50 mt-2 rounded-xl  overflow-hidden w-max ${alignmentClasses} `}
                     onClick={() => setOpen(false)}
                 >
-                    <div className={`rounded-xl ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-700 ` + contentClasses }>{children}</div>
+                    <div className={`rounded-xl ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-700  ` + contentClasses }>{children}</div>
                 </div>
             </Transition>
         </>

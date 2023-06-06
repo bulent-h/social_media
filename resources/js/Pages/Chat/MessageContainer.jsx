@@ -103,7 +103,7 @@ export default function MessageContainer({ messages }) {
 
                         {/* <div className="bg-gray-200 dark:bg-gray-700 h-12 w-12 rounded-full"></div> */}
                         {
-                            currentUserChat?.avatar?
+                            currentUserChat?.avatar ?
                                 <div
                                     className=" bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full"
                                     style={{ backgroundImage: 'url(' + 'storage/' + currentUserChat?.avatar + ')' }}>
@@ -203,19 +203,23 @@ export default function MessageContainer({ messages }) {
                 </div>
             </div >
             {/* <!-- Messages --> */}
-            < div className="flex-1 overflow-auto bg-gray-200  dark:bg-[#020617]" >
-                <div className="py-2 px-3 ">
-                    {/* <!-- Message --> */}
-                    <div className="messageitem" >
-                        {/* <MessageItem /> */}
-                        {messageItems}
 
+            < div className="flex-1 overflow-auto bg-gray-200  dark:bg-[#020617]" >
+
+                    <div className="py-2 px-3 ">
+                        {/* <!-- Message --> */}
+                        <div className="messageitem" >
+                            {/* <MessageItem /> */}
+                            {messageItems}
+
+                        </div>
                     </div>
-                </div>
-                {/* <!-- End of message --> */}
-                <div id="last" className="h-10">
-                </div>
+                    {/* <!-- End of message --> */}
+                    <div id="last" className="h-10">
+                    </div>
+
             </div >
+
             <MessageInput currentUserChat={currentUserChat} fetchMessages={fetchMessages} />
         </>
     );

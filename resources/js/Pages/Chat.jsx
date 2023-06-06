@@ -10,6 +10,7 @@ export default function Chat(auth) {
     const [currentUserChat, setCurrentUserChat] = useState();
     const [users, setUsers] = useState();
     const [messages, setMessages] = useState();
+    const [replyMessage, setReplyMessage] = useState();
 
     async function setup() {
 
@@ -42,9 +43,7 @@ export default function Chat(auth) {
             })
     }
     function addToMessageContainer(e) {
-        console.log(e);
-        console.log(e.sender_id + " == " + currentUserChat.id);
-        console.log(e.receiver_id + " == " + currentUserChat.id);
+
 
         if (e.sender_id == currentUserChat.id) {
             var tmp = [...messages, e];
@@ -80,7 +79,7 @@ export default function Chat(auth) {
 
     return (
         <>
-            <ChatContext.Provider value={{ auth, currentUserChat, fetchMessages, addToMessageContainer }}>
+            <ChatContext.Provider value={{ auth, currentUserChat, fetchMessages, addToMessageContainer,replyMessage ,setReplyMessage}}>
                 <div className="bg-gray-200  dark:bg-gray-800">
                     <div className="w-full h-32 bg-gray-200 dark:bg-gray-800 "></div>
                     <div className="container mx-auto " style={{ 'marginTop': '-128px' }}>
