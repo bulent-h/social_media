@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlockController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -52,6 +53,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/block/{user}', [BlockController::class, 'block']);
     Route::delete('/unblock/{user}', [BlockController::class, 'unblock']);
+
+    Route::get('/posts/create',[PostController::class,'create'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+
 
 });
 
