@@ -1,6 +1,4 @@
 <?php
-
-use App\Http\Controllers\BlockController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -11,6 +9,9 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\UserStatusController;
 use App\Http\Controllers\SecurityController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\BlockController;
 
 
 /*
@@ -53,12 +54,20 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/block/{user}', [BlockController::class, 'block'])->name('user.block');
     Route::delete('/unblock/{user}', [BlockController::class, 'unblock'])->name('user.unblock');
+    Route::get('/blocked-users', [BlockController::class, 'getBlockedUsers'])->name('block.users');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/unblock/post/{user}', [BlockController::class, 'unblock'])->name('user.unblock.post');
+
+
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/security', [SecurityController::class, 'edit'])->name('security.edit');
+    Route::get('/notification', [NotificationController::class, 'edit'])->name('notification.edit');
+    Route::get('/privacy', [PrivacyController::class, 'edit'])->name('privacy.edit');
+    Route::get('/block', [BlockController::class, 'edit'])->name('block.edit');
+
 
 
 });

@@ -40,6 +40,9 @@ export default function Chat({ auth, children }) {
                                         <div className="ml-4 dark:text-gray-200 text-3xl text-gray-darkest">
                                             Settings
                                         </div>
+                                        <div className='ml-4'>
+                                            <DarkModeButton />
+                                        </div>
                                     </div>
                                 </div >
 

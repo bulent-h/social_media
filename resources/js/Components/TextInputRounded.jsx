@@ -19,5 +19,6 @@ export default forwardRef(function TextInput({ type = 'text', className = '', is
             }
             ref={input}
         />
+
     );
 });
