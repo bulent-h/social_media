@@ -16,9 +16,8 @@ export default function UpdateBlockForm({ mustVerifyEmail, status, className = '
     const user = usePage().props.auth.user;
 
     const [searchModal, setSearchModal] = useState(false);
-    const passwordInput = useRef();
     const [blockedUsers, setBlockedUsers] = useState([]);
-
+    const [searchTerm, setSearchTerm] = useState('');
     const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
         name: user.name,
     });
@@ -28,16 +27,6 @@ export default function UpdateBlockForm({ mustVerifyEmail, status, className = '
         setSearchModal(true);
     };
 
-    const deleteUser = (e) => {
-        e.preventDefault();
-
-        destroy(route('profile.destroy'), {
-            preserveScroll: true,
-            onSuccess: () => closeModal(),
-            onError: () => passwordInput.current.focus(),
-            onFinish: () => reset(),
-        });
-    };
 
     const closeModal = () => {
         setSearchModal(false);
@@ -66,23 +55,25 @@ export default function UpdateBlockForm({ mustVerifyEmail, status, className = '
 
     };
 
-    function fetchUsers(){
+    function fetchUsers() {
         fetch(route('block.users'))
-        .then(response => response.json())
-        .then(data => {
-            setBlockedUsers(data);
-            // console.log(data)
-        })
-        .catch(error => {
-            console.error('Error fetching blocked users:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                setBlockedUsers(data);
+                // console.log(data)
+            })
+            .catch(error => {
+                console.error('Error fetching blocked users:', error);
+            });
     }
+    const filteredBlockedUsers = blockedUsers.filter(user =>
+        user.blocked.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     useEffect(() => {
         fetchUsers();
-
     }, []);
-    console.log(blockedUsers.length)
+    console.log('run')
 
     return (
         <section className={className}>
@@ -127,16 +118,19 @@ export default function UpdateBlockForm({ mustVerifyEmail, status, className = '
                                     d="M15.9 14.3H15l-.3-.3c1-1.1 1.6-2.7 1.6-4.3 0-3.7-3-6.7-6.7-6.7S3 6 3 9.7s3 6.7 6.7 6.7c1.6 0 3.2-.6 4.3-1.6l.3.3v.8l5.1 5.1 1.5-1.5-5-5.2zm-6.2 0c-2.6 0-4.6-2.1-4.6-4.6s2.1-4.6 4.6-4.6 4.6 2.1 4.6 4.6-2 4.6-4.6 4.6z">
                                 </path>
                             </svg>
+
                             <input
                                 type="text"
-                                // value={searchTerm}
-                                // onKeyDown={e => handleSearch(e)}
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full bg-gray-100 dark:bg-gray-700 dark:text-gray-300 focus:border-gray-100 focus:ring-gray-100 text-sm focus:ring-0 border-0"
                                 placeholder="Search" />
                         </div>
                     </div>
                     <div className="h-96 overflow-auto">
-                        {blockedUsers.map(user => (
+
+
+                        {filteredBlockedUsers.map(user => (
                             <div key={user.blocked.id}>
                                 <div className="grid grid-cols-12 bg-white dark:bg-gray-900 px-3 py-3 text-gray-700 dark:text-gray-300 ">
                                     <div className='col-span-2'>
