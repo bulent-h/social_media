@@ -10,6 +10,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\FriendshipController;
 use App\Http\Controllers\UserStatusController;
+use App\Http\Controllers\SecurityController;
 
 
 /*
@@ -56,6 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/security', [SecurityController::class, 'edit'])->name('security.edit');
+
 
 });
 

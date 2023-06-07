@@ -32,7 +32,7 @@ export default function Chat({ auth, children }) {
                     <div className="py-2 h-screen flex place-content-center ">
                         <div className="bg-white dark:bg-gray-900 flex border border-gray border-0 rounded shadow-lg h-full overflow-auto " style={{ width: '75em' }}>
                             {/* Left Side of View */}
-                            <div className="w-3/12 border flex flex-col  border-none" style={{ minWidth: '20em' }}>
+                            <div className="w-1/12 border flex flex-col  border-none" style={{ minWidth: '15em' }}>
 
 
                                 <div className="py-2 px-3 " >
@@ -44,7 +44,7 @@ export default function Chat({ auth, children }) {
                                 </div >
 
                                 {/* list */}
-                                <div className=" overflow-hidden my-24" >
+                                <div className="overflow-y-auto mt-24 overflow-x-hidden" >
                                     <div className=' '>
 
                                         <Nav active={route().current('profile.edit')}>
@@ -69,19 +69,24 @@ export default function Chat({ auth, children }) {
                             </div>
 
                             {/* Right Side of View */}
-                            <div className="w-9/12  flex flex-col border-none" style={{ minWidth: '30em' }}>
+                            <div className="w-11/12  flex flex-col border-none" style={{ minWidth: '30em' }}>
 
-                                <div className="py-2 px-3 flex flex-row justify-between items-center bg-indigo-500 dark:bg-gray-900" >
-                                    <div className="flex items-center">
 
-                                        <div className="ml-4 dark:text-gray-200">
-                                            <p className="text-gray-darkest w-36 h-16 truncate overflow-hidden">
-                                                fewmkl
-                                            </p>
-
+                                <div className="py-2 px-3 " >
+                                    <div className=" flex items-center justify-end  w-full h-16 ">
+                                        <div className="mr-4 dark:text-gray-200 text-3xl text-gray-darkest">
+                                            <Link href={route('home')}>
+                                                <div className='font-bold' >
+                                                    &#10005;
+                                                </div>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div >
+                                {/* <div className="py-2 px-3 flex flex-row justify-between items-center bg-indigo-500 dark:bg-gray-900" >
+
+
+                                </div > */}
                                 {/* <!-- Messages --> */}
 
                                 < div className="flex-1 overflow-auto" >
