@@ -93,4 +93,20 @@ class UserController extends Controller
     ]);
   }
 
+  public function searchUsers(Request $request)
+{
+    $query = $request->input('query');
+
+    // $users = User::where('name', 'LIKE', '%' . $query . '%')->get();
+    $users = User::whereNotExists(function ($query) {
+        $query->select(DB::raw(1))
+            ->from('blocks')
+            ->whereColumn('blocks.blocked_id', 'users.id')
+            ->orWhereColumn('blocks.blocker_id', 'users.id');
+    })
+    ->where('name', 'LIKE', '%' . $query . '%')
+    ->get();
+    return response()->json($users);
+}
+
 }

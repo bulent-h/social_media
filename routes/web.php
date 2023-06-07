@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/user/status', [UserStatusController::class, 'update'])->name('status.update');
 
     Route::get('/find-friends', [UserController::class, 'findFriends'])->name('find-friends');
+    Route::get('/search-users', [UserController::class, 'searchUsers'])->name('search.users');
 
     Route::post('/friendship/send/{user}', [FriendshipController::class, 'sendFriendRequest'])->name('sendFriendRequest');
     Route::post('/friendship/accept/{user}', [FriendshipController::class, 'acceptFriendRequest']);
