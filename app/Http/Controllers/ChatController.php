@@ -17,33 +17,34 @@ class ChatController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index(){
+    public function index()
+    {
         return Inertia::render('Chat');
     }
 
-    public function getMessages(Request $request,$id)
+    public function getMessages(Request $request, $id)
     {
 
         $user = User::find($request->user()->id);
-        $messages = $user->bothMessage($user->id,$id);
+        $messages = $user->bothMessage($user->id, $id);
 
-        return  $messages;
+        return $messages;
     }
 
-    public function getUsers(){
-        $users=User::all();
-        // dd($users->setVisible(['id', 'name']));
-        // return $users->setVisible(['id', 'name']) ;
-        return $users;
-
+    public function getUsers(Request $request)
+    {
+        $user = $request->user();
+        $friendsOfMine = $user->friendsOfMine;
+        $friendOf = $user->friendOf;
+        return $friendsOfMine->concat($friendOf);
     }
 
-    public function getLastMessage(Request $request ,$id)
+    public function getLastMessage(Request $request, $id)
     {
         $user = User::find($request->user()->id);
-        $messageId = $user->bothMessage($user->id,$id)->max('id');
-        $lastMessage=Message::find($messageId);
-        return  $lastMessage;
+        $messageId = $user->bothMessage($user->id, $id)->max('id');
+        $lastMessage = Message::find($messageId);
+        return $lastMessage;
     }
 
 

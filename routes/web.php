@@ -12,6 +12,7 @@ use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\BlockController;
+use Illuminate\Http\Request;
 
 
 /*
@@ -41,7 +42,13 @@ Route::get('/home', function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
 
+    Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
+        return $request->user();
+    })->name('me');
+
     Route::get('/users/{user}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/my-profile', [UserController::class, 'myProfile'])->name('user.me');
+
     Route::post('/user/status', [UserStatusController::class, 'update'])->name('status.update');
 
     Route::get('/find-friends', [UserController::class, 'findFriends'])->name('find-friends');

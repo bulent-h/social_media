@@ -19,6 +19,7 @@ export default function Chat(auth) {
                 if (users != data.data) {
                     setUsers(() => data.data);
                     // setCurrentUserChat(() => data.data[0]);
+                    console.log(data.data)
                     handleSelectChat(data.data[0]);
                 }
             }).catch(err => {

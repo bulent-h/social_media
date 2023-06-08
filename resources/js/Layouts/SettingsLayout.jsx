@@ -50,19 +50,19 @@ export default function Chat({ auth, children }) {
                                 <div className="overflow-y-auto mt-24 overflow-x-hidden" >
                                     <div className=' '>
 
-                                        <Nav active={route().current('profile.edit')}>
+                                        <Nav href={route('profile.edit')} active={route().current('profile.edit')}>
                                             Edit Profile
                                         </Nav>
-                                        <Nav active={route().current('security.edit')}>
+                                        <Nav href={route('security.edit')} active={route().current('security.edit')}>
                                             Security
                                         </Nav>
-                                        <Nav active={route().current('privacy.edit')}>
+                                        <Nav href={route('privacy.edit')} active={route().current('privacy.edit')}>
                                             Privacy
                                         </Nav>
-                                        <Nav active={route().current('notification.edit')}>
+                                        <Nav  href={route('notification.edit')} active={route().current('notification.edit')}>
                                             Notifications
                                         </Nav>
-                                        <Nav active={route().current('block.edit')}>
+                                        <Nav href={route('block.edit')} active={route().current('block.edit')}>
                                             Block List
                                         </Nav>
 

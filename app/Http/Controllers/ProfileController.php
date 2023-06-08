@@ -36,8 +36,6 @@ class ProfileController extends Controller
             Storage::disk('public')->delete($request->user()->avatar);
             $request->user()->avatar = null;
         }
-
-
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {

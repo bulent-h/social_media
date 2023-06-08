@@ -50,12 +50,9 @@ export default function MessageItem({ message }) {
 
                                 <div className="flex justify-between">
                                     <div>
-                                        <p className="text-sm mt-1 text-gray-800 dark:text-gray-200">
-                                            {message.text_content}
-                                        </p>
                                         {/* reply */}
                                         {(message?.parent) &&
-                                            <div className="border rounded-xl bg-blue-50 dark:bg-gray-800 drop-shadow-xl border-gray-200 dark:border-gray-700 m-2">
+                                            <div className="border-none p-1 rounded-xl bg-gray-50 dark:bg-gray-800 drop-shadow-xl border-gray-200 dark:border-gray-700 m-2">
                                                 <div className="m-2">
                                                     <div className="flex justify-between">
                                                         {
@@ -76,7 +73,7 @@ export default function MessageItem({ message }) {
                                                     </p>
                                                     <p className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
                                                         {
-                                                            dayjs(message.parent.updated_at).fromNow()
+                                                            dayjs(message.parent.updated_at).format('MMM DD, YYYY HH:mm')
                                                         }
                                                     </p>
                                                 </div>
@@ -84,6 +81,10 @@ export default function MessageItem({ message }) {
                                             </div>
                                         }
                                         {/* end of reply */}
+                                        <p className="text-sm mt-3 text-gray-800 dark:text-gray-200">
+                                            {message.text_content}
+                                        </p>
+
                                     </div>
 
                                     <DropdownMenu.Trigger contentClasses=' '>
@@ -100,7 +101,7 @@ export default function MessageItem({ message }) {
                                 </div>
                                 <p className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
                                     {
-                                        dayjs(message.updated_at).fromNow()
+                                        dayjs(message.updated_at).format('MMM DD, YYYY HH:mm')
                                     }
                                 </p>
                             </div>
@@ -132,12 +133,10 @@ export default function MessageItem({ message }) {
                                         </div>
                                     </DropdownMenu.Trigger>
                                 </div>
-                                <p className="text-sm mt-1 text-gray-800 dark:text-gray-200">
-                                    {message.text_content}
-                                </p>
+
                                 {/* reply */}
                                 {(message?.parent) &&
-                                    <div className="border rounded-xl bg-blue-50 dark:bg-gray-800 drop-shadow-xl border-gray-200 dark:border-gray-700 m-2">
+                                    <div className="border-none p-1 rounded-xl bg-gray-50 dark:bg-gray-800 drop-shadow-xl border-gray-200 dark:border-gray-700 m-2">
                                         <div className="m-2">
                                             <div className="flex justify-between">
                                                 {
@@ -158,7 +157,7 @@ export default function MessageItem({ message }) {
                                             </p>
                                             <p className="text-right text-xs text-gray-500 dark:text-gray-400 mt-1">
                                                 {
-                                                    dayjs(message.parent.updated_at).fromNow()
+                                                    dayjs(message.parent.updated_at).format('MMM DD, YYYY HH:mm')
                                                 }
                                             </p>
                                         </div>
@@ -166,11 +165,14 @@ export default function MessageItem({ message }) {
                                     </div>
                                 }
                                 {/* end of reply */}
+                                <p className="text-sm mt-3 text-gray-800 dark:text-gray-200">
+                                    {message.text_content}
+                                </p>
                                 <div >
                                     <img alt="" />
                                 </div>
                                 <p className="text-right text-xs text-gray-500 mt-1 dark:text-gray-400">
-                                    {dayjs(message.updated_at).fromNow()}
+                                    {dayjs(message.updated_at).format('MMM DD, YYYY HH:mm')}
                                 </p>
                             </div>
                         </div>

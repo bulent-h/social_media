@@ -25,14 +25,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function sentMessage(){
-        return $this->hasMany(Message::class,'sender_id','id');
+    public function sentMessage()
+    {
+        return $this->hasMany(Message::class, 'sender_id', 'id');
     }
 
-    public function receivedMessage(){
-        return $this->hasMany(Message::class,'receiver_id' ,'id');
+    public function receivedMessage()
+    {
+        return $this->hasMany(Message::class, 'receiver_id', 'id');
     }
-    public function bothMessage($sender_id,$receiver_id){
+    public function bothMessage($sender_id, $receiver_id)
+    {
 
         // return $messages = DB::table('messages')
         //         ->where([['sender_id', $sender_id,],['receiver_id', $receiver_id]])
@@ -43,15 +46,15 @@ class User extends Authenticatable
         $receiverId = $receiver_id; // Replace with the actual receiver's ID
 
         $messages = Message::with('parent')
-        ->where(function ($query) use ($senderId, $receiverId) {
-            $query->where('sender_id', $senderId)
-                ->where('receiver_id', $receiverId);
-        })
-        ->orWhere(function ($query) use ($senderId, $receiverId) {
-            $query->where('sender_id', $receiverId)
-                ->where('receiver_id', $senderId);
-        })
-        ->get();
+            ->where(function ($query) use ($senderId, $receiverId) {
+                $query->where('sender_id', $senderId)
+                    ->where('receiver_id', $receiverId);
+            })
+            ->orWhere(function ($query) use ($senderId, $receiverId) {
+                $query->where('sender_id', $receiverId)
+                    ->where('receiver_id', $senderId);
+            })
+            ->get();
 
         return $messages;
     }

@@ -4,7 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInputRounded from '@/Components/TextInputRounded';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
     const user = usePage().props.auth.user;
@@ -27,7 +27,6 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         );
     }
     function handleRemoveFile() {
-
         setFileUrl();
         setData('file', null);
         document.getElementById("file").value = null;
@@ -35,20 +34,38 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     }
 
     function handleRemoveAvatar() {
-
         setData('file', null);
         setData('avatar', null);
-
-        console.log(data);
-
         setFileUrl();
-
-
     }
-
     const submit = (e) => {
         e.preventDefault();
         post(route('profile.update'));
+
+    };
+    useEffect(() => {
+        if (recentlySuccessful) {
+            fetchUserData();
+        }
+    }, [recentlySuccessful]);
+
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch(route('me'));
+            const userData = await response.json();
+            handleRemoveFile();
+
+            setData({
+                name: userData.name,
+                username: userData.username,
+                email: userData.email,
+                avatar: userData.avatar,
+                file: null,
+            });
+        } catch (error) {
+            // Handle error
+            console.log('Error fetching user data:', error);
+        }
     };
 
     return (
@@ -74,21 +91,12 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                                         ?
                                         <div className='relative'>
                                             <div className='flex items-center justify-center'>
-                                                <div className="p-4 m-2 bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding border-4 border-dashed w-32 h-32 rounded-full" style={{ backgroundImage: 'url(' + fileUrl + ')' }}></div>
+                                                <div className="p-4 m-2 bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding border-4 border-none w-32 h-32 rounded-full" style={{ backgroundImage: 'url(' + fileUrl + ')' }}></div>
                                                 <div className='absolute top-0 right-0'>
-                                                    <button id="removeBtn" type='button' onClick={handleRemoveFile} className="text-red-500 dark:text-red-500 text-sm hover:bg-gray-400 rounded-xl">X</button>
+                                                    <button id="removeBtn" type='button' onClick={handleRemoveFile} className="text-red-500 dark:text-red-500 text-sm ">&#10005;</button>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        // <div className='flex items-center justify-center'>
-                                        //     <div className=" p-4 m-2 bg-center bg-cover bg-no-repeat bg-gray-200  dark:bg-gray-400  bg-origin-padding  border-4 border-dashed w-32 h-32 rounded-full " style={{ backgroundImage: 'url(' + fileUrl + ')' }}>
-                                        //     </div>
-                                        //     <div className=' h-32' >
-                                        //         <button id="removeBtn" type='button' onClick={handleRemoveFile} className=" text-red-500 dark:text-red-500 text-sm hover:bg-gray-400 rounded-xl " >X</button>
-                                        //     </div>
-                                        //     {/* <img id="preview" className="w-20 h-20 border-none opacity-75 " src={fileUrl} /> */}
-                                        // </div>
                                         :
                                         <div className='flex items-center'>
 

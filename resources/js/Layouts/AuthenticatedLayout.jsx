@@ -49,7 +49,7 @@ export default function AuthenticatedLayout({ user, children }) {
           {/* Additional content */}
           {/* Replace the placeholder content below with your desired content */}
           <div className="bg-white py-4 px-6 flex-1">
-            <RightSidebar/>
+            <RightSidebar user={user} />
           </div>
         </div>
       </div>

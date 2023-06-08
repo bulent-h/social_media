@@ -16,7 +16,7 @@ export default function UpdateBlockForm({ mustVerifyEmail, status, className = '
     const user = usePage().props.auth.user;
 
     const [searchBlockedModal, setSearchBlockedModal] = useState(false);
-    const [searchToBlockModal, setSearchToBlockModal] = useState(true);
+    const [searchToBlockModal, setSearchToBlockModal] = useState(false);
 
     const [blockedUsers, setBlockedUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -169,13 +169,13 @@ export default function UpdateBlockForm({ mustVerifyEmail, status, className = '
                                         >
                                         </div>
                                     </div>
-                                    <div className="col-span-8 ml-3 flex items-center">
+                                    <div className="col-span-7 ml-3 flex items-center">
                                         <div className="truncate text-sm font-mono overflow-hidden">
                                             {user.blocked.name}
                                         </div>
                                     </div>
-                                    <div className="col-span-2 border rounded-full flex items-center justify-center">
-                                        <button onClick={() => handleUnblockUser(user.blocked)} className="text-sm font-mono">
+                                    <div className="col-span-3 flex items-center justify-center">
+                                        <button onClick={() => handleUnblockUser(user.blocked)} className="border rounded-xl p-2 text-xs">
                                             Unblock
                                         </button>
                                     </div>
@@ -226,8 +226,8 @@ export default function UpdateBlockForm({ mustVerifyEmail, status, className = '
                                             {user.name}
                                         </div>
                                     </div>
-                                    <div className="col-span-2 border rounded-full flex items-center justify-center ">
-                                        <button onClick={() => handleBlockUser(user)} className="text-sm font-mono">
+                                    <div className="col-span-2  flex items-center justify-center ">
+                                        <button onClick={() => handleBlockUser(user)} className="border rounded-xl p-2 text-xs">
                                             Block
                                         </button>
                                     </div>
