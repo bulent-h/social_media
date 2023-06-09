@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlockController;
+use App\Http\Controllers\VoteController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -56,6 +57,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/posts/create',[PostController::class,'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::post('/vote/{postId}/{optionId}', [VoteController::class, 'store'])->name('vote.store');
+
 
 
 });

@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Vote extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'type',
-        'content',
-        'image_path',
-        'video_path',
+        'option_id',
     ];
 
     public function user() 
@@ -22,13 +19,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function poll() 
+    public function option() 
     {
-        return $this->hasOne(Poll::class);
-    }
-
-    public function polls()
-    {
-        return $this->hasMany(Poll::class);
+        return $this->belongsTo(Option::class);
     }
 }

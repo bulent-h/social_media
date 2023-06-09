@@ -13,6 +13,7 @@ class UserController extends Controller
   public function show(User $user)
   {
     $authUser = auth()->user();
+    $posts = $user->posts()->with('polls.options.votes.user')->get();
 
     // Check if auth user has sent a friend request
     $authUserSentFriendRequest = DB::table('friendships')
@@ -63,6 +64,7 @@ class UserController extends Controller
       'authUserReceivedFriendRequest' => $authUserReceivedFriendRequest,
       'isFriends' => $isFriends,
       'authUserHasBlocked' => $authUserHasBlocked,
+      'posts' => $posts,
       'csrf' => csrf_token(),
     ]);
   }
@@ -90,6 +92,7 @@ class UserController extends Controller
     return Inertia::render('FindFriends', [
       'users' => $users,
       'keyword' => $keyword,
+      
     ]);
   }
 

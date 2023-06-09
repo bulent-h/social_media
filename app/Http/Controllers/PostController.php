@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Option;
 use App\Models\Poll;
 use App\Models\Post;
+use App\Models\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -39,39 +42,48 @@ class PostController extends Controller
         $post->content = $validated['content'] ?? null;
 
         if ($request->hasFile('image_path')) {
-            // Generate a unique file name (using the current timestamp and the original file name)
-            $fileName = time() . '_' . $request->file('image_path')->getClientOriginalName();
-
-            // Move the file to the desired location and save the file's path in the database
+            
+            $originalName = $request->file('image_path')->getClientOriginalName();
+            $originalNameWithoutSpaces = str_replace(' ', '_', $originalName); 
+            $fileName = time() . '_' . $originalNameWithoutSpaces;
+        
+            
             $filePath = $request->file('image_path')->storeAs('uploads', $fileName, 'public');
-            $post->image_path = '/storage/' . $filePath;
+            $post->image_path = $filePath;
         }
+        
 
         if ($request->hasFile('video_path')) {
-            // Generate a unique file name (using the current timestamp and the original file name)
-            $fileName = time() . '_' . $request->file('video_path')->getClientOriginalName();
+            
+            $originalName = $request->file('video_path')->getClientOriginalName();
+            $originalNameWithoutSpaces = str_replace(' ', '_', $originalName); 
+            $fileName = time() . '_' . $originalNameWithoutSpaces;
 
-            // Move the file to the desired location and save the file's path in the database
+            
             $filePath = $request->file('video_path')->storeAs('uploads', $fileName, 'public');
-            $post->video_path = '/storage/' . $filePath;
+            $post->video_path = $filePath;
         }
 
         $post->save();
 
         if ($validated['type'] === 'poll') {
+            $poll = new Poll();
+            $poll->post_id = $post->id; // Attach the poll to the post we just created
+            $poll->question = $validated['poll_question'];
+            $poll->save();
+        
             foreach ($validated['poll_options'] as $option) {
-                $poll = new Poll();
-                $poll->post_id = $post->id; // Attach the poll to the post we just created
-                $poll->question = $validated['poll_question'];
-                $poll->option = $option;
-                $poll->save();
+                $pollOption = new Option();
+                $pollOption->poll_id = $poll->id;
+                $pollOption->text = $option;
+                $pollOption->save();
             }
         }
+        
 
         return redirect()->route('home');
 
     }
-
 
 
     public function create()

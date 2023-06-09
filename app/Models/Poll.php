@@ -7,12 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Poll extends Model
 {
+    use HasFactory;
 
-    protected $fillable = ['post_id', 'option', 'question'];
-    
-    public function post()
+    protected $fillable = [
+        'post_id',
+        'question',
+    ];
+
+    public function post() 
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function options() 
+    {
+        return $this->hasMany(Option::class);
     }
 
 }

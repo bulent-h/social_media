@@ -10,13 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('polls', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->string('question');
+            $table->foreignId('parent_id')->nullable()->constrained('comments');
+            $table->text('content');
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -24,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('polls');
+        Schema::dropIfExists('comments');
     }
 };
