@@ -3,11 +3,11 @@ import Sidebar from '@/Components/Sidebar';
 import RightSidebar from '@/Components/RightSidebar';
 
 export default function AuthenticatedLayout({ user, children }) {
-  const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
+    useEffect(() => {
+        const style = document.createElement('style');
+        style.textContent = `
       .scrollbar-custom {
         scrollbar-width: thin;
         scrollbar-color: #888888 #f4f4f4;
@@ -31,28 +31,35 @@ export default function AuthenticatedLayout({ user, children }) {
       }
     `;
 
-    document.head.appendChild(style);
+        document.head.appendChild(style);
 
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
+        return () => {
+            document.head.removeChild(style);
+        };
+    }, []);
 
-  return (
-    <div className="flex h-screen bg-gray-200 justify-center">
-      <div className="flex w-3/4">
-        <Sidebar />
-        <div className="flex flex-col flex-1 overflow-hidden">
-          <div className="flex-1 overflow-y-auto scrollbar-custom bg-white">{children}</div>
+    return (
+        <div className="flex h-screen bg-gray-200 justify-center">
+            <div className="flex w-3/4">
+                <Sidebar />
+
+
+                <div className="w-full h-screen overflow-y-auto">
+                    <div className="flex-1 overflow-y-auto scrollbar-custom bg-white h-full">
+                        <div className="flex-1">{children}</div>
+
+                    </div>
+                </div>
+
+                <div className="flex flex-col w-64 border-l-2 border-gray-200">
+                    {/* Additional content */}
+                    {/* Replace the placeholder content below with your desired content */}
+                    <div className="bg-white py-4 px-6 flex-1">
+                        <RightSidebar user={user} />
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div className="flex flex-col w-64 border-l-2 border-gray-200">
-          {/* Additional content */}
-          {/* Replace the placeholder content below with your desired content */}
-          <div className="bg-white py-4 px-6 flex-1">
-            <RightSidebar user={user} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

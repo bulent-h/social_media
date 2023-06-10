@@ -162,4 +162,10 @@ class User extends Authenticatable
         return $this->blocks()->where('blocked_id', $user->id)->exists();
     }
 
+
+    public function stories()
+    {
+        return $this->hasMany(Story::class);
+    }
+
 }

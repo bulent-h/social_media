@@ -13,6 +13,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\BlockController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\StoryController;
 
 
 /*
@@ -76,6 +77,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/privacy', [PrivacyController::class, 'edit'])->name('privacy.edit');
     Route::get('/block', [BlockController::class, 'edit'])->name('block.edit');
 
+    Route::get('/story', [StoryController::class, 'create'])->name('story.create');
+    Route::post('/story', [StoryController::class, 'store'])->name('story.store');
+    Route::get('/stories', [StoryController::class, 'index'])->name('stories.get');
+    Route::get('/stories/{user}', [StoryController::class, 'viewUserStory'])->name('story.view.user');
+    Route::get('/stories/{user}/{story}', [StoryController::class, 'show'])->name('story.show');
 
 
 });
