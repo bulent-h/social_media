@@ -90,6 +90,27 @@ class User extends Authenticatable
             ->wherePivot('status', '=', 1) // where status is Accepted
             ->withTimestamps();
     }
+    public function getAllFriends($userId){
+        $mergedFriends = collect([]);
+        $friends = Friendship::select('user_requested', 'requester')
+            ->where('status', 1)
+            ->where(function ($query) use ($userId) {
+                $query->where('requester', $userId)
+                    ->orWhere('user_requested', $userId);
+            })
+            ->get();
+
+        $friends->each(function ($friend) use ($mergedFriends) {
+            $mergedFriends->push($friend->user_requested);
+            $mergedFriends->push($friend->requester);
+        });
+        $mergedFriends = collect($mergedFriends)->reject(function ($friendId) use ($userId) {
+            return $friendId == $userId;
+        })->values()->all();
+        // $userModels = User::whereIn('id', $mergedFriends)->get();
+        return $mergedFriends;
+
+    }
 
     public function addFriend(User $user)
     {

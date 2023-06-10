@@ -1,7 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import { useEffect } from 'react';
+import { useEffect ,useState} from 'react';
 import Stories from '@/Components/Stories';
+import Modal from '@/Components/Modal';
+import CreateForm from '@/Pages/Story/CreateForm'
+
 export default function Home({ auth }) {
 
     const updateUserStatus = async (status) => {
@@ -41,7 +44,7 @@ export default function Home({ auth }) {
             user={auth.user}
         >
             <Head title="Home" />
-        <Stories></Stories>
+            <Stories></Stories>
 
 
 

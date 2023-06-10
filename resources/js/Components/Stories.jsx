@@ -31,19 +31,25 @@ export default function Stories() {
                     </a>
                 </div>
 
-                <div className='shrink-0 m-2 border-2 h-20 w-20  rounded-full bg-center bg-cover bg-no-repeat'
+                {/* <div className='shrink-0 m-2 border-2 h-20 w-20  rounded-full bg-center bg-cover bg-no-repeat'
                     style={(user.avatar) && { backgroundImage: `url(/storage/${user.avatar})` }}>
-                </div>
+                </div> */}
                 {(users) &&
                     users.map((user) => (
                         (user.stories.length != 0) &&
-                        < a href={route('story.show', { story: user.stories[0], user: user })} key={user.id}>
-                            <div
-                                className='shrink-0 m-2 border-2 h-20 w-20  rounded-full bg-center bg-cover bg-no-repeat'
-                                style={(user.avatar) && { backgroundImage: `url(/storage/${user.avatar})` }}>
-
+                        <div  key={user.id} className=" flex-col items-center justify-center w-24 mx-2">
+                            <div>
+                                < a href={route('story.show', { story: user.stories[0], user: user })}  className="">
+                                    <div
+                                        className='shrink-0 m-2 border-2 h-20 w-20 bg-gray-200  rounded-full bg-center bg-cover bg-no-repeat'
+                                        style={(user.avatar) && { backgroundImage: `url(/storage/${user.avatar})` }}>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                            <div className="flex items-center justify-center ">
+                                <p className=" truncate whitespace-nowrap">{user.name}</p>
+                            </div>
+                        </div>
 
                     )
 

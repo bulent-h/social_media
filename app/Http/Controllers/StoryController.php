@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Story;
 use App\Models\User;
+use App\Models\Friendship;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -13,17 +14,47 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Carbon\Carbon;
 
 class StoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('stories')->get();
+        // $users = User::with('stories')->get();
 
-        return response()->json($users);
+        // $userId = $request->user()->id;
+        // $mergedFriends = collect([]);
+        // $friends = Friendship::select('user_requested', 'requester')
+        //     ->where('status', 1)
+        //     ->where(function ($query) use ($userId) {
+        //         $query->where('requester', $userId)
+        //             ->orWhere('user_requested', $userId);
+        //     })
+        //     ->get();
+
+        // $friends->each(function ($friend) use ($mergedFriends) {
+        //     $mergedFriends->push($friend->user_requested);
+        //     $mergedFriends->push($friend->requester);
+        // });
+        // $mergedFriends = collect($mergedFriends)->reject(function ($friendId) use ($userId) {
+        //     return $friendId == $userId;
+        // })->values()->all();
+
+        // $userModels = User::whereIn('id', $mergedFriends)->with('stories')->get();
+        $mergedFriends=$request->user()->getAllFriends($request->user()->id);
+        $last24Hours = Carbon::now()->subDay();
+
+        $usersWithStories = User::whereIn('id', $mergedFriends)->with(['stories' => function ($query) use ($last24Hours) {
+            $query->where('created_at', '>', $last24Hours);
+        }])->get();
+
+
+        return $usersWithStories;
+
+        // return response()->json($users);
     }
     public function viewUserStory(Request $request)
     {
