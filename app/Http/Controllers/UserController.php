@@ -13,7 +13,15 @@ class UserController extends Controller
   public function show(User $user)
   {
     $authUser = auth()->user();
-    $posts = $user->posts()->with('polls.options.votes.user')->get();
+    $posts = $user->posts()
+    ->with('polls.options.votes.user')
+    ->withCount('comments') 
+    ->get()
+    ->map(function($post) use ($authUser) {
+        $post->liked = $post->likes()->where('user_id', $authUser->id)->exists();
+        return $post;
+    });
+
 
     // Check if auth user has sent a friend request
     $authUserSentFriendRequest = DB::table('friendships')

@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->text('content')->nullable();
             $table->string('image_path')->nullable();
             $table->string('video_path')->nullable();
+            $table->integer('likes_count')->default(0);
             $table->timestamps();
         });
     }
