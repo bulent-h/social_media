@@ -10,9 +10,18 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function show(User $user)
-    {
-        $authUser = auth()->user();
+  public function show(User $user)
+  {
+    $authUser = auth()->user();
+    $posts = $user->posts()
+    ->with('polls.options.votes.user')
+    ->withCount('comments') 
+    ->get()
+    ->map(function($post) use ($authUser) {
+        $post->liked = $post->likes()->where('user_id', $authUser->id)->exists();
+        return $post;
+    });
+
 
         // Check if auth user has sent a friend request
         $authUserSentFriendRequest = DB::table('friendships')
@@ -56,16 +65,16 @@ class UserController extends Controller
             ->where('blocked_id', $user->id)
             ->exists();
 
-        return Inertia::render('UserShow', [
-            'user' => $user,
-            'auth' => $authUser,
-            'authUserSentFriendRequest' => $authUserSentFriendRequest,
-            'authUserReceivedFriendRequest' => $authUserReceivedFriendRequest,
-            'isFriends' => $isFriends,
-            'authUserHasBlocked' => $authUserHasBlocked,
-            'csrf' => csrf_token(),
-        ]);
-    }
+    return Inertia::render('UserShow', [
+      'user' => $user,
+      'auth' => $authUser,
+      'authUserSentFriendRequest' => $authUserSentFriendRequest,
+      'authUserReceivedFriendRequest' => $authUserReceivedFriendRequest,
+      'isFriends' => $isFriends,
+      'authUserHasBlocked' => $authUserHasBlocked,
+      'csrf' => csrf_token(),
+    ]);
+  }
 
 
     public function findFriends(Request $request)
@@ -87,11 +96,11 @@ class UserController extends Controller
             })
             ->get();
 
-        return Inertia::render('FindFriends', [
-            'users' => $users,
-            'keyword' => $keyword,
-        ]);
-    }
+    return Inertia::render('FindFriends', [
+      'users' => $users,
+      'keyword' => $keyword,
+    ]);
+  }
 
     public function searchUsers(Request $request)
     {
