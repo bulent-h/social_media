@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlockController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -57,7 +58,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/posts/create',[PostController::class,'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::post('/vote/{postId}/{optionId}', [VoteController::class, 'store'])->name('vote.store');
+    Route::post('/votes/{postId}/{optionId}', [PostController::class, 'vote'])->name('post.vote');
+    Route::post('/posts/{post}/like', [PostController::class, 'toggleLike'])->name('posts.like');
+    Route::get('/posts/{post}/comments', [CommentController::class, 'show'])->name('comment.show');
+    Route::post('/comment/{postId}', [CommentController::class, 'store'])->name('comment.store');
 
 
 
