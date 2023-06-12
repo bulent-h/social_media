@@ -32,43 +32,52 @@ export default function MessageContainer({ messages }) {
     function handleSearch(e) {
         setSearchTerm(e.target.value);
 
-        const filtered = messages.filter((message) => {
-            const messageText = message.text_content.toLowerCase();
-            const term = e.target.value.toLowerCase();
-            return messageText.includes(term);
-        });
+        if (!e.target.value) {
+            console.log('e.target.value');
+            setFilteredItems();
+        }
+        else {
 
-        setFilteredItems(filtered.map(message =>
-            <div key={message.id} className=" flex justify-center p-4 dark:bg-gray-900 ">
-                <div className=" w-96">
-                    <div className="rounded-xl py-2 px-3 bg-gray-100 dark:bg-gray-900"
-                    >
-                        {
-                            (auth.auth.user.id == message.sender_id) ?
-                                <p className="text-sm text-blue-300 truncate w-40">
-                                    {auth.auth.user.name}
-                                </p>
-                                :
-                                <p className="text-sm text-blue-300 truncate w-40">
-                                    {currentUserChat.name}
-                                </p>
-                        }
-                        <p className="text-sm mt-1 text-gray-800 dark:text-gray-200">
-                            {message.text_content}
-                        </p>
-                        <div >
-                            <img alt="" />
+            const filtered = messages.filter((message) => {
+                const messageText = message.text_content.toLowerCase();
+                const term = e.target.value.toLowerCase();
+                return messageText.includes(term);
+            });
+
+            setFilteredItems(filtered.map(message =>
+                <div key={message.id} className=" flex justify-center p-4 dark:bg-gray-900 ">
+                    <div className=" w-96">
+                        <div className="rounded-xl py-2 px-3 bg-gray-100 dark:bg-gray-900"
+                        >
+                            {
+                                (auth.auth.user.id == message.sender_id) ?
+                                    <p className="text-sm text-blue-300 truncate w-40">
+                                        {auth.auth.user.name}
+                                    </p>
+                                    :
+                                    <p className="text-sm text-blue-300 truncate w-40">
+                                        {currentUserChat.name}
+                                    </p>
+                            }
+                            <p className="text-sm mt-1 text-gray-800 dark:text-gray-200">
+                                {message.text_content}
+                            </p>
+                            <div >
+                                <img alt="" />
+                            </div>
+                            <p className="text-right text-xs text-gray-500 mt-1 dark:text-gray-400">
+                                {dayjs(message.updated_at).format('MMM DD, YYYY HH:mm')}
+                            </p>
                         </div>
-                        <p className="text-right text-xs text-gray-500 mt-1 dark:text-gray-400">
-                            {dayjs(message.updated_at).fromNow()}
-                        </p>
                     </div>
                 </div>
-            </div>
-        )
-        )
-
+            )
+            )
+        }
         console.log(e.target.value);
+
+
+
     }
     async function handleBlockUser() {
         await axios.post(route('user.block', { user: currentUserChat }))
@@ -206,17 +215,17 @@ export default function MessageContainer({ messages }) {
 
             < div className="flex-1 overflow-auto bg-gray-200  dark:bg-[#020617]" >
 
-                    <div className="py-2 px-3 ">
-                        {/* <!-- Message --> */}
-                        <div className="messageitem" >
-                            {/* <MessageItem /> */}
-                            {messageItems}
+                <div className="py-2 px-3 ">
+                    {/* <!-- Message --> */}
+                    <div className="messageitem" >
+                        {/* <MessageItem /> */}
+                        {messageItems}
 
-                        </div>
                     </div>
-                    {/* <!-- End of message --> */}
-                    <div id="last" className="h-10">
-                    </div>
+                </div>
+                {/* <!-- End of message --> */}
+                <div id="last" className="h-10">
+                </div>
 
             </div >
 

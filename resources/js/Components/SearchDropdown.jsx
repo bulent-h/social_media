@@ -63,7 +63,7 @@ const Content = ({ align = 'right', contentClasses = '', children }) => {
                     className={`absolute z-50 mt-2 rounded-xl shadow-lg overflow-hidden w-max ${alignmentClasses} `}
                 // onClick={() => setOpen(false)}
                 >
-                    <div className={`rounded-xl ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-700 ` + contentClasses}>{children}</div>
+                    <div className={`rounded-xl ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-900 ` + contentClasses}>{children}</div>
                 </div>
             </Transition>
         </>
