@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Post;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -184,6 +183,12 @@ class User extends Authenticatable
         return $this->blocks()->where('blocked_id', $user->id)->exists();
     }
 
+
+    public function stories()
+    {
+        return $this->hasMany(Story::class);
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -197,13 +202,6 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->hasMany(Like::class);
-    }
-
-
-
-    public function stories()
-    {
-        return $this->hasMany(Story::class);
     }
 
 }
