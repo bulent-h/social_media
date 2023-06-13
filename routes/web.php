@@ -1,7 +1,4 @@
 <?php
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\VoteController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -85,15 +82,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/stories', [StoryController::class, 'index'])->name('stories.get');
     Route::get('/stories/{user}', [StoryController::class, 'viewUserStory'])->name('story.view.user');
     Route::get('/stories/{user}/{story}', [StoryController::class, 'show'])->name('story.show');
-
-
-    Route::get('/posts/create',[PostController::class,'create'])->name('posts.create');
-    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::post('/votes/{postId}/{optionId}', [PostController::class, 'vote'])->name('post.vote');
-    Route::post('/posts/{post}/like', [PostController::class, 'toggleLike'])->name('posts.like');
-    Route::get('/posts/{post}/comments', [CommentController::class, 'show'])->name('comment.show');
-    Route::post('/comment/{postId}', [CommentController::class, 'store'])->name('comment.store');
-
 
 
 });

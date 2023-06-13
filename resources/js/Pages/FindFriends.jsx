@@ -57,29 +57,27 @@ const FindFriends = () => {
             <Head title="Find Friends" />
             <div className='flex justify-center'>
                 <div className='w-11/12 mt-6'>
-                    <div className='mb-4'>
-                        <SearchBar searchTerm={searchTerm} onSearchTermChange={handleSearch} />
-                    </div>
+                    <SearchBar searchTerm={searchTerm} onSearchTermChange={handleSearch} />
                     {searchTerm && (
                         <>
-                            {/* {searchHistory.length > 0 && (
-                                    <div>
-                                        <div className='flex justify-between mx-2 mt-6'>
-                                            <h2>Search History:</h2>
-                                            <button onClick={handleClearSearchHistory}>Clear</button>
-                                        </div>
-                                        <ul>
-                                            {searchHistory.map((term, index) => (
-                                                <li key={index}>{term}</li>
-                                            ))}
-                                        </ul>
+                            {searchHistory.length > 0 && (
+                                <div>
+                                    <div className='flex justify-between mx-2 mt-6'>
+                                        <h2>Search History:</h2>
+                                        <button onClick={handleClearSearchHistory}>Clear</button>
+                                    </div>
+                                    <ul>
+                                        {searchHistory.map((term, index) => (
+                                            <li key={index}>{term}</li>
+                                        ))}
+                                    </ul>
 
                                 </div>
-                            )} */}
+                            )}
                             {searchResults.length === 0 ? (
-                                <p className='mt-4'>No users found.</p>
+                                <p>No users found.</p>
                             ) : (
-                                <ul >
+                                <ul>
                                     {searchResults.map((user) => (
                                         <li key={user.id} className="flex items-center space-x-4">
                                             <a href={route('user.show', { user: user.id })} className="flex items-center space-x-4 hover:underline">
