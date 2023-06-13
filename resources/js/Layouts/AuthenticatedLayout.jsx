@@ -39,32 +39,6 @@ export default function AuthenticatedLayout({ user, children }) {
         };
     }, []);
 
-<<<<<<< HEAD
-    return (
-        <div className="flex h-screen bg-gray-200 justify-center">
-            <div className="flex w-3/4">
-                <Sidebar />
-
-
-                <div className="w-full h-screen overflow-y-auto">
-                    <div className="flex-1 overflow-y-auto scrollbar-custom bg-white h-full">
-                        <div className="flex-1">{children}</div>
-
-                    </div>
-                </div>
-
-                <div className="flex flex-col w-64 border-l-2 border-gray-200">
-                    {/* Additional content */}
-                    {/* Replace the placeholder content below with your desired content */}
-                    <div className="bg-white py-4 px-6 flex-1">
-                        <RightSidebar user={user} />
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    );
-=======
   return (
     <div className="flex h-screen bg-gray-200 justify-center md:px-0">
       <div className="flex 2xl:w-2/3 w-full ">
@@ -83,5 +57,4 @@ export default function AuthenticatedLayout({ user, children }) {
       </div>
     </div>
   );
->>>>>>> feature/posts
 }
