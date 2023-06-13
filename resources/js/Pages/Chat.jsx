@@ -4,13 +4,15 @@ import MessageContainer from '@/Pages/Chat/MessageContainer';
 import { useEffect, useState, createContext } from 'react';
 import { ChatContext } from '@/Pages/Chat/ChatContext';
 import Pusher from 'pusher-js';
+import { usePage } from '@inertiajs/react';
 
 export default function Chat(auth) {
-
-    const [currentUserChat, setCurrentUserChat] = useState();
+    const { props } = usePage();
+    const [currentUserChat, setCurrentUserChat] = useState(props.selectedUser);
     const [users, setUsers] = useState();
     const [messages, setMessages] = useState();
     const [replyMessage, setReplyMessage] = useState();
+
 
     async function setup() {
 
@@ -19,9 +21,15 @@ export default function Chat(auth) {
                 if (users != data.data) {
                     setUsers(() => data.data);
                     // setCurrentUserChat(() => data.data[0]);
-                    console.log(data.data)
-                    handleSelectChat(data.data[0]);
+                    if (currentUserChat) {
+                        console.log('currentUserChat elected')
+                        handleSelectChat(props.selectedUser);
+                    }
+                    else {
+                        // handleSelectChat(data.data[0]);
+                    }
                 }
+
             }).catch(err => {
                 console.error(err);
             })
@@ -29,7 +37,6 @@ export default function Chat(auth) {
     function handleSelectChat(user) {
         fetchMessages(user);
         setCurrentUserChat(() => user);
-
     }
     async function fetchMessages(user) {
         await axios.get(route('chat.getMessages', {
@@ -75,21 +82,26 @@ export default function Chat(auth) {
             channel.stopListening('NewMessage');
         }
 
-
     }, [currentUserChat, messages]);
+
+    console.log(props.selectedUser);
 
     return (
         <>
-            <ChatContext.Provider value={{ auth, currentUserChat, fetchMessages, addToMessageContainer,replyMessage ,setReplyMessage}}>
+            <ChatContext.Provider value={{ auth, currentUserChat, fetchMessages, addToMessageContainer, replyMessage, setReplyMessage }}>
                 <div className="bg-gray-200  dark:bg-gray-800">
+
                     <div className="w-full h-32 bg-gray-200 dark:bg-gray-800 "></div>
                     <div className="container mx-auto " style={{ 'marginTop': '-128px' }}>
+
                         <div className="py-2 h-screen flex place-content-center ">
                             <div className="flex border border-gray border-0 rounded shadow-lg h-full overflow-auto " style={{ width: '75em' }}>
+
                                 {/* Left Side of View */}
-                                <div className="w-1/3 border flex flex-col overflow-auto border-none" style={{ minWidth: '20em' }}>
+                                <div className="w-1/3 border flex flex-col overflow-auto border-none bg-gray-100 dark:bg-gray-900 " style={{ minWidth: '20em' }}>
                                     <ChatList users={users} handleSelectChat={handleSelectChat} />
                                 </div>
+
                                 {/* Right Side of View */}
                                 <div className="w-2/3 border flex flex-col border-none" style={{ minWidth: '30em' }}>
                                     {/* Message Container */}

@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { createContext, useContext } from 'react'
+import { ChatContext } from '@/Pages/Chat/ChatContext';
 
 dayjs.extend(relativeTime);
 
 export default function ChatItem({ user, handleSelectChat }) {
     const [lastMessage, setLastMessage] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { auth, currentUserChat } = useContext(ChatContext);
+
     async function setup() {
         await axios.get(route('chat.getLastMessage', {
             id: user.id,
@@ -27,8 +31,8 @@ export default function ChatItem({ user, handleSelectChat }) {
 
     return (
         <>
-            <div id="item" onClick={handleSelectChat} className="flex items-center border border-gray-200 bg-white dark:bg-gray-900 px-3 font-medium text-sm dark:border-gray-700 hover:bg-blue-100
-            ">
+            <div id="item" onClick={handleSelectChat}
+                className={`  flex items-center border border-gray-200  px-3 font-medium text-sm dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-gray-800  ${(currentUserChat?.id==user.id)?' bg-blue-100 dark:bg-gray-700 ' :' bg-white dark:bg-gray-900 '} `}>
                 <div>
                     <div
                         id='profile-image'

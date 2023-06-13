@@ -127,7 +127,7 @@ export default function MessageContainer({ messages }) {
                             {currentUserChat?.name}
                         </p>
                         <p className="text-gray-darker text-xs mt-1" >
-                            Online
+                            {currentUserChat?.status}
                         </p>
                     </div>
                 </div>

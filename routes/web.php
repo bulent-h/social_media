@@ -88,8 +88,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-
-Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('test');
+Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('chat');
+// Route::get('/chat/{user}', [ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('chat');
 Route::get('/getUsers', [ChatController::class, 'getUsers'])->name('chat.getUsers');
 Route::get('/chat/messages/{id}', [ChatController::class, 'getMessages'])->name('chat.getMessages');
 Route::get('/chat/user/lastMessage/{id}', [ChatController::class, 'getLastMessage'])->name('chat.getLastMessage');
