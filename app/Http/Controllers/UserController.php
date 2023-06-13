@@ -68,6 +68,7 @@ class UserController extends Controller
     return Inertia::render('UserShow', [
       'user' => $user,
       'auth' => $authUser,
+      'posts' => $posts,
       'authUserSentFriendRequest' => $authUserSentFriendRequest,
       'authUserReceivedFriendRequest' => $authUserReceivedFriendRequest,
       'isFriends' => $isFriends,

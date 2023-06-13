@@ -130,7 +130,7 @@ const Post = ({ user, auth, initialPost }) => {
 
                 </div>
 
-                <div className="relative inline-block text-left ">
+                {/* <div className="relative inline-block text-left ">
                     <button
                         type="button"
                         className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black"
@@ -167,7 +167,7 @@ const Post = ({ user, auth, initialPost }) => {
                             </div>
                         </div>
                     )}
-                </div>
+                </div> */}
 
             </div>
             <div className="text-gray-600 px-16 ml-4 -mt-4 font-bold mb-4">{post.content}</div>
