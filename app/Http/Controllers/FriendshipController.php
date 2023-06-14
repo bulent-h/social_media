@@ -5,9 +5,41 @@ namespace App\Http\Controllers;
 use App\Models\Friendship;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class FriendshipController extends Controller
 {
+    public function showFriends()
+{
+    $userId = auth()->user()->id;
+
+    $friends = Friendship::where(function ($query) use ($userId) {
+        $query->where('requester', $userId)
+            ->orWhere('user_requested', $userId);
+    })->where('status', 1)
+    ->get()
+    ->map(function ($friendship) use ($userId) {
+        if ($friendship->requester === $userId) {
+            $friendId = $friendship->user_requested;
+        } else {
+            $friendId = $friendship->requester;
+        }
+
+        $friend = User::find($friendId);
+
+        return [
+            'id' => $friend->id,
+            'name' => $friend->name,
+            'username' => $friend->username,
+            'avatar' => $friend->avatar,
+        ];
+    });
+
+    return Inertia::render('MyFriends', [
+        'friends' => $friends,
+    ]);
+}
+
     public function sendFriendRequest(User $user)
     {
         $authUser = auth()->user();
