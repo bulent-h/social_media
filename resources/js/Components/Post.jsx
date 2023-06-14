@@ -2,13 +2,27 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { format, formatDistanceToNow } from 'date-fns';
 import CommentModal from './CommentModal';
+import { Inertia } from '@inertiajs/inertia';
+
+const ImageModal = ({ image_path, handleClose }) => {
+    return (
+        <div onClick={handleClose} className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 z-50 flex items-center justify-center">
+            <div className="max-w-4xl max-h-4xl">
+                <img src={`/storage/${image_path}`} alt="Post" className="object-contain rounded-lg" />
+            </div>
+        </div>
+    );
+};
+
 
 
 const Post = ({ user, auth, initialPost }) => {
+    //const { user, auth } = usePage().props;
     const [showModal, setShowModal] = useState(false);
     const [comments, setComments] = useState([]);
-    const [commentContent, setCommentContent] = useState('');
     const [post, setPost] = useState(initialPost);
+    const [showImageModal, setShowImageModal] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     useEffect(() => {
         fetchComments();
@@ -17,6 +31,14 @@ const Post = ({ user, auth, initialPost }) => {
     useEffect(() => {
         setPost(post);
     }, [post]);
+
+    const handleOpenDropdown = () => {
+        setDropdownOpen(true);
+    };
+
+    const handleCloseDropdown = () => {
+        setDropdownOpen(false);
+    };
 
 
 
@@ -100,6 +122,27 @@ const Post = ({ user, auth, initialPost }) => {
             });
     };
 
+    const handleDeletePost = () => {
+        Inertia.delete(`/posts/${post.id}`)
+            .then(response => {
+                if (response.status === 200) {
+                    // Handle successful deletion (show a message, etc)
+                } else {
+                    // Handle error during deletion
+                }
+            })
+            .catch(error => console.error('There was a problem with the delete operation: ', error));
+    };
+
+
+    const openImageModal = () => {
+        setShowImageModal(true);
+    };
+
+    const closeImageModal = () => {
+        setShowImageModal(false);
+    };
+
     let date = new Date(post.created_at);
 
     // Check if the post is older than a day
@@ -115,20 +158,45 @@ const Post = ({ user, auth, initialPost }) => {
 
     return (
         <div key={post.id} className="border-b bg-white">
-            <div className='flex space-x-4 p-4 pb-0'>
-                <div
-                    className="bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full mb-4"
-                    style={{ backgroundImage: `url(/storage/${user.avatar})` }}
-                >
-                </div>
-                <div className="flex flex-col">
-                    <div className="flex items-center space-x-2 mb-2">
-                        <h3 className="text-lg font-semibold">{user.name}</h3>
-                        <span className="text-gray-500">@{user.username}  •</span>
-                        <span className="text-gray-400">{formattedDate}</span>
+            <div className='flex justify-between space-x-4 p-4 pb-0'>
+                <div className='flex space-x-4'>
+                    <div
+                        className="bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full mb-4"
+                        style={{ backgroundImage: `url(/storage/${user.avatar})` }}
+                    >
                     </div>
-
+                    <div className="flex flex-col">
+                        <div className="flex items-center space-x-2 mb-2">
+                            <h3 className="text-lg font-semibold">{user.name}</h3>
+                            <span className="text-gray-500">@{user.username}  •</span>
+                            <span className="text-gray-400">{formattedDate}</span>
+                        </div>
+                    </div>
                 </div>
+                <div className="relative">
+                    {user.id === auth.id && (
+                        <button type="button" className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black" id="options-menu" aria-haspopup="true" aria-expanded="true" onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}>
+                            •••
+                        </button>
+                    )}
+
+                    {dropdownOpen && (
+                        <div className="origin-top-right absolute right-0 w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                            <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                <a
+                                    href="#"
+                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                    role="menuitem"
+                                    onClick={handleDeletePost}
+                                >
+                                    Delete Post
+                                </a>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+
 
                 {/* <div className="relative inline-block text-left ">
                     <button
@@ -174,7 +242,8 @@ const Post = ({ user, auth, initialPost }) => {
             <div className='flex justify-center'>
                 {post.type === 'image' && post.image_path &&
                     <div
-                        className="object-cover object-center w-10/12 h-96 rounded-xl mb-4 "
+                        onClick={openImageModal}
+                        className="object-cover object-center w-10/12 h-96 rounded-xl mb-4 cursor-pointer"
                         style={{ backgroundImage: `url(/storage/${post.image_path})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundColor: 'black' }}
                     >
                     </div>
@@ -265,7 +334,7 @@ const Post = ({ user, auth, initialPost }) => {
                         onClick={() => openModal(post.id)}
                     >
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message-dots m-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-message-dots m-2" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"></path>
                                 <path d="M12 11l0 .01"></path>
@@ -290,6 +359,13 @@ const Post = ({ user, auth, initialPost }) => {
                         post={post}
                     />
                 </div>
+            )}
+
+            {showImageModal && (
+                <ImageModal
+                    image_path={post.image_path}
+                    handleClose={closeImageModal}
+                />
             )}
 
         </div>

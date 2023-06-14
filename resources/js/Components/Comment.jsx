@@ -12,7 +12,7 @@ const Comment = ({ comment }) => {
         <div className="mb-4 p-2 bg-white border-b border-gray-200">
             <div className="flex items-center">
                 <div
-                    className="bg-gray-200 rounded-full h-12 w-12 mr-4"
+                    className="bg-center bg-cover bg-no-repeat bg-gray-200 rounded-full h-12 w-12 mr-4"
                     style={{ backgroundImage: `url(/storage/${comment.user.avatar})` }}
                 />
                 <div>
@@ -24,7 +24,7 @@ const Comment = ({ comment }) => {
                 </div>
             </div>
 
-            <p className="text-gray-700">{comment.content}</p>
+            <p className="text-gray-700 pl-16">{comment.content}</p>
         </div>
     );
 };

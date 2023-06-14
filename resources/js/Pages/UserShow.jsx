@@ -6,10 +6,10 @@ import { format, formatDistanceToNow } from 'date-fns';
 import Post from '@/Components/Post';
 
 const UserShow = () => {
-    const { user, auth, authUserSentFriendRequest, authUserReceivedFriendRequest, isFriends, authUserHasBlocked, errors, posts} = usePage().props;
+    const { user, auth, authUserSentFriendRequest, authUserReceivedFriendRequest, isFriends, authUserHasBlocked, errors, posts } = usePage().props;
     const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
-
+    const sortedPosts = posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
     const handleAddFriend = () => {
         Inertia.post(`/friendship/send/${user.id}`).then(() => {
@@ -19,6 +19,7 @@ const UserShow = () => {
             }
         });
     };
+    
 
 
 
@@ -80,7 +81,7 @@ const UserShow = () => {
                         {
                             auth.id === user.id ? (
                                 <button
-                                    className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-full"
+                                    className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-full mr-4"
                                     onClick={() => Inertia.visit('/profile')}
                                 >
                                     Edit Profile
@@ -125,9 +126,11 @@ const UserShow = () => {
                         }
                     </div>
                     <div className="relative inline-block text-left ">
-                        <button type="button" className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black" id="options-menu" aria-haspopup="true" aria-expanded="true" onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}>
-                            •••
-                        </button>
+                        {auth.id !== user.id && (
+                            <button type="button" className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black" id="options-menu" aria-haspopup="true" aria-expanded="true" onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}>
+                                •••
+                            </button>
+                        )}
 
                         {dropdownOpen && (
                             <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
@@ -146,7 +149,7 @@ const UserShow = () => {
                     </div>
                 </div>
             </div>
-            {posts.map((singlePost) => <Post user={user} auth={auth} initialPost={singlePost} key={singlePost.id}/>)}
+            {sortedPosts.map((singlePost) => <Post user={user} auth={auth} initialPost={singlePost} key={singlePost.id} />)}
         </AuthenticatedLayout>
     );
 };
