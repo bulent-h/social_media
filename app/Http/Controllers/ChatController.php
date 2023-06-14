@@ -17,9 +17,15 @@ class ChatController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Chat');
+        // dd($request->user());
+        $user = User::find($request->selectedUser);
+
+        return Inertia::render('Chat', [
+            'selectedUser' => $user
+        ]);
+
     }
 
     public function getMessages(Request $request, $id)

@@ -57,7 +57,7 @@ export default function UpdateProfileInformation({ className = '' }) {
     const submit = (e) => {
         e.preventDefault();
         data.type=fileType;
-        
+
         post(route('story.store'));
 
     };

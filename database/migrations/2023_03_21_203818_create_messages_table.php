@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->text('text_content');
             $table->text('media_content_path')->nullable();
+            $table->text('media_type')->nullable();
 
 
             $table->boolean('is_edited')->nullable();

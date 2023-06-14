@@ -34,7 +34,7 @@ class MessageController extends Controller
 
         $request->validate([
             'text' => ['required', 'string'],
-            'file' => ['nullable', 'mimes:jpg,jpeg,png,gif', 'max:4096'],
+            'file' => ['nullable', 'mimes:jpg,jpeg,png,gif,mp4,webm', 'max:4096'],
         ]);
 
 
@@ -48,6 +48,18 @@ class MessageController extends Controller
         if ($request->hasFile('file')) {
 
             $message->media_content_path = $request->file('file')->store('media', 'public');
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $mimeType = $file->getMimeType();
+
+                if (str_contains($mimeType, 'video')) {
+                    $message->media_type = 'video';
+
+                }
+                elseif (str_contains($mimeType, 'image')) {
+                    $message->media_type = 'image';
+                }
+            }
 
         }
         $message->save();
@@ -90,7 +102,7 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,Message $message)
+    public function destroy(Request $request, Message $message)
     {
         // $message=Message::where('id',$request->message_id)->get();
         // return $message;

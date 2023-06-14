@@ -1,10 +1,10 @@
 import InputError from '@/Components/InputError';
-import InputLabel  from '@/Components/InputLabel';
+import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInputRounded from '@/Components/TextInputRounded';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
-import { useState ,useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
     const user = usePage().props.auth.user;
@@ -14,6 +14,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         username: user.username,
         email: user.email,
         avatar: user.avatar,
+        bio: user.bio,
         file: null
     });
     const [fileUrl, setFileUrl] = useState();
@@ -40,6 +41,8 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     }
     const submit = (e) => {
         e.preventDefault();
+        // console.log(data);
+
         post(route('profile.update'));
 
     };
@@ -81,7 +84,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <div className='my-4 col-span-12 grid grid-cols-12 gap-4'>
                         <div className='col-start-2 col-span-2 flex items-center justify-start '>
 
-                            <InputLabel className="font-semibold"  htmlFor="file" value="Profile Photo" />
+                            <InputLabel className="font-semibold" htmlFor="file" value="Profile Photo" />
                         </div>
 
                         <div className='col-span-7 col-start-5'>
@@ -104,13 +107,13 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                                         </div>
                                 }
                                 <div className='ml-8'>
-                                    <InputLabel className="font-semibold"  htmlFor="file" value="Change Profile Photo"
+                                    <InputLabel className="font-semibold" htmlFor="file" value="Change Profile Photo"
                                     />
                                     <input id="file" type="file" className="sr-only"
                                         onChange={handleFileChange} />
 
                                     <button id="deleteAvatar" type='button' onClick={handleRemoveAvatar}
-                                    className="text-red-500 dark:text-red-500 text-sm hover:bg-gray-100 rounded-xl py-1 "
+                                        className="text-red-500 dark:text-red-500 text-sm hover:bg-gray-100 rounded-xl py-1 "
                                     // className='mt-2 inline-flex ml-4 items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'
                                     >Remove</button>
 
@@ -125,7 +128,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <div className='my-4 col-span-12 grid grid-cols-12 gap-4'>
                         <div className='col-start-2 col-span-2 flex items-center justify-start '>
 
-                            <InputLabel className="font-semibold"  htmlFor="name" value="Name" />
+                            <InputLabel className="font-semibold" htmlFor="name" value="Name" />
                         </div>
                         <TextInputRounded
                             id="name"
@@ -143,7 +146,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <div className='my-4 col-span-12 grid grid-cols-12 gap-4'>
 
                         <div className='col-start-2 col-span-2 flex items-center justify-start '>
-                            <InputLabel className="font-semibold"  htmlFor="username" value="Username" />
+                            <InputLabel className="font-semibold" htmlFor="username" value="Username" />
                         </div>
                         <TextInputRounded
                             id="username"
@@ -161,7 +164,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <div className='my-4 col-span-12 grid grid-cols-12 gap-4'>
                         <div className='col-start-2 col-span-2 flex items-center justify-start '>
 
-                            <InputLabel className="font-semibold"  htmlFor="email" value="Email"  />
+                            <InputLabel className="font-semibold" htmlFor="email" value="Email" />
                         </div>
                         <TextInputRounded
                             id="email"
@@ -174,6 +177,23 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         />
 
                         <InputError className="mt-2" message={errors.email} />
+                    </div>
+
+                    <div className='my-4 col-span-12 grid grid-cols-12 gap-4'>
+
+                        <div className='col-start-2 col-span-2 flex items-center justify-start '>
+                            <InputLabel className="font-semibold" htmlFor="bio" value="Bio" />
+                        </div>
+                        <textarea
+                            id="bio"
+                            className="mt-1 block w-full col-span-7 col-start-5 block p-2.5 w-full text-sm text-gray-900 bg-gray-200 rounded-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Write your thoughts here..."
+                            value={data.bio}
+                            onChange={(e) => setData('bio', e.target.value)}
+                        />
+
+
+                        <InputError className="mt-2" message={errors.bio} />
                     </div>
 
                     <div className='my-4 col-span-12 grid grid-cols-12 gap-4'>

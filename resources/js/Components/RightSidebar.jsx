@@ -24,7 +24,7 @@ export default function RightSidebar() {
                     <FiBell size={24} className="transform hover:scale-110" />
                 </a>
                 <a
-                    href="/chat"
+                    href={route('chat')}
                     className={`w-12 h-12 flex items-center justify-center rounded-full text-white hover:bg-opacity-80 transition-colors duration-200 ${url === '/chats' ? 'bg-opacity-100' : ''
                         }`}
                 >

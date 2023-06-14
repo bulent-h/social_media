@@ -11,7 +11,7 @@ export default function MessageInput() {
         fileUrl: '',
         receiver_id: currentUserChat?.id,
         sender_id: auth?.auth.user.id,
-        parent_id:''
+        parent_id: ''
     });
 
     // var validationErrors;
@@ -70,6 +70,13 @@ export default function MessageInput() {
         document.getElementById("file").value = null;
         // console.log(document.getElementById("file").value);
     }
+    function handleRemoveReply() {
+        setMessage({
+            ...message,
+            parent_id: ''
+        });
+        setReplyMessage('');
+    }
     function clearInput() {
         setMessage({
             ...message,
@@ -121,19 +128,47 @@ export default function MessageInput() {
                 {
                     message.fileUrl
                     &&
-                    <div>
-                        <div className="bg-gray-400/50 p-2 absolute bottom-20 right-2 w-fit rounded-xl flex flex-col justify-center">
+                    <div className="" >
+                        <div className="bg-gray-400/50 p-2 absolute bottom-20 right-2 w-1/6 rounded-xl flex flex-col justify-center">
                             <button id="removeBtn" onClick={handleRemoveFile} className=" text-red-500 dark:text-red-500 text-sm hover:bg-gray-400 rounded-xl p-1 mb-1" >Remove</button>
-                            <img id="preview" className="w-20 opacity-75 rounded-md" src={message.fileUrl} />
+                            <img id="preview" className="w-36 opacity-75 rounded-md" src={message.fileUrl} />
                         </div>
                     </div>
                     /* <div className="text-gray-400 dark:text-gray-500">{'this.validationErrors.file[0] '}</div> */
 
                 }
+                {
+                    message.parent_id
+                    &&
+                    <div className="opacity-50 bg-gray-400/50 absolute bottom-20 w-full flex rounded-lg">
+                        <button id="removeBtn" onClick={handleRemoveReply}
+                            className="text-red-900 dark:text-red-500 text-sm  rounded-xl p-1 mb-1" >
+                            <div className='font-bold' >
+                                &#10005;
+                            </div>
+                        </button>
+                        <div className="w-4/6 border-none m-2 p-3 rounded-xl bg-gray-50 dark:bg-gray-800 drop-shadow-xl border-gray-200 dark:border-gray-700 m-2">
+                            {
+                                (auth.auth.user.id == replyMessage.id) ?
+                                    <p className="text-sm text-blue-300 mt-1   truncate w-40">
+                                        {auth.auth.user.name}
+                                    </p>
+                                    :
+                                    <p className="text-sm text-blue-300 mt-1   truncate w-40">
+                                        {currentUserChat.name}
+                                    </p>
+
+                            }
+                            <p className="text-sm mt-1  text-gray-800 dark:text-gray-200">
+                                {replyMessage.text_content}
+                            </p>
+                        </div>
+                    </div>
+                }
                 {/* <!-- End Image preveiw--> */}
 
                 {/* <!-- Input --> */}
-                <div className="bg-grey-100 px-4 py-4 flex items-center bg-indigo-400 dark:bg-gray-900">
+                <div className="bg-grey-100 px-4 py-4 flex items-center bg-indigo-500 dark:bg-[#111120]">
 
                     {/* <!-- Emoji input--> */}
                     <div className="text-gray-900 dark:text-gray-400 ">
