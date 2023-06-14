@@ -1,6 +1,7 @@
 import React from 'react';
 import { usePage } from '@inertiajs/react';
 import { FiSettings, FiBell, FiMessageCircle, FiUser } from 'react-icons/fi';
+import FriendRequests from './FriendRequests';
 
 export default function RightSidebar() {
     const { url } = usePage();
@@ -41,7 +42,7 @@ export default function RightSidebar() {
 
             {/* Lower Part */}
             <div className="h-64">
-                {/* Render dynamic content here based on the current page */}
+                {url === '/my-friends' && <FriendRequests/>}
             </div>
         </div>
     );

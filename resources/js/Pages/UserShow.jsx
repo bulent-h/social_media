@@ -53,6 +53,7 @@ const UserShow = () => {
     };
 
     return (
+        
         <AuthenticatedLayout>
             <Head title={`${user.name}'s Profile`} />
             <div className='flex border-b-2 border-gray-100 items-center'>

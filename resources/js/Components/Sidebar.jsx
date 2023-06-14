@@ -79,7 +79,7 @@ const Sidebar = () => {
 
           <div>
             <Link
-              href="/chat"
+              href={route('user.showFriends')}
               className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${url === '/chat' ? 'bg-purple-700 text-white' : ''
                 }`}
             >
