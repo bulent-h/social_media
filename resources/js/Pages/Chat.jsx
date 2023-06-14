@@ -84,7 +84,6 @@ export default function Chat(auth) {
 
     }, [currentUserChat, messages]);
 
-    console.log(props.selectedUser);
 
     return (
         <>
@@ -98,7 +97,7 @@ export default function Chat(auth) {
                             <div className="flex border border-gray border-0 rounded shadow-lg h-full overflow-auto " style={{ width: '75em' }}>
 
                                 {/* Left Side of View */}
-                                <div className="w-1/3 border flex flex-col overflow-auto border-none bg-gray-100 dark:bg-gray-900 " style={{ minWidth: '20em' }}>
+                                <div className="w-1/3 border flex flex-col overflow-auto border-none bg-gray-100 dark:bg-slate-900" style={{ minWidth: '20em' }}>
                                     <ChatList users={users} handleSelectChat={handleSelectChat} />
                                 </div>
 

@@ -32,7 +32,7 @@ export default function ChatItem({ user, handleSelectChat }) {
     return (
         <>
             <div id="item" onClick={handleSelectChat}
-                className={`  flex items-center border border-gray-200  px-3 font-medium text-sm dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-gray-800  ${(currentUserChat?.id==user.id)?' bg-blue-100 dark:bg-gray-700 ' :' bg-white dark:bg-gray-900 '} `}>
+                className={`  flex items-center border-b border-gray-200  px-3 font-medium text-sm dark:border-gray-800 hover:bg-blue-50 dark:hover:bg-gray-800  ${(currentUserChat?.id==user.id)?' bg-blue-100 dark:bg-gray-800 ' :' bg-white dark:bg-gray-900 '} `}>
                 <div>
                     <div
                         id='profile-image'

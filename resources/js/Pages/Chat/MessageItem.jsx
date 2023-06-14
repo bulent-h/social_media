@@ -3,11 +3,21 @@ import { ChatContext } from '@/Pages/Chat/ChatContext';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import DropdownMenu from '@/Components/DropdownMenu';
+import Modal from '@/Components/ImageModal';
+
 dayjs.extend(relativeTime);
 
 export default function MessageItem({ message }) {
+    const [imageModal, setImageModal] = useState(false);
+    const handleModalClick = () => {
+        setImageModal(true);
+    };
 
 
+    const closeModal = () => {
+        setImageModal(false);
+        // reset();
+    };
     const { auth, currentUserChat, fetchMessages, replyMessage, setReplyMessage } = useContext(ChatContext);
     function handelReply() {
         setReplyMessage(message);
@@ -84,6 +94,29 @@ export default function MessageItem({ message }) {
                                         <p className="text-sm mt-3 text-gray-800 dark:text-gray-200">
                                             {message.text_content}
                                         </p>
+                                        <div>
+                                            {(message.media_content_path) &&
+
+                                                <div onClick={handleModalClick} className="bg-gray-400/50 m-2  bottom-20 right-2 w-fit rounded-xl ">
+                                                    <>{
+                                                        (message.media_type == 'image') &&
+                                                        <div
+                                                            className=" w-36 h-36 opacity-75 rounded-md bg-contain bg-cover"
+                                                            style={{ backgroundImage: `url(storage/${message.media_content_path})` }}
+                                                        >
+                                                        </div>
+                                                    }</>
+                                                    <>{
+                                                        (message.media_type == 'video') &&
+                                                        < video
+                                                            className=" w-36 h-36"
+                                                            src={'/storage/' + message.media_content_path}>
+                                                        </video >
+                                                    }</>
+
+                                                </div>
+                                            }
+                                        </div>
 
                                     </div>
 
@@ -179,6 +212,42 @@ export default function MessageItem({ message }) {
                 }
 
             </DropdownMenu >
+            <Modal show={imageModal} onClose={closeModal}>
+
+
+
+
+                <>{
+                    (message.media_type == 'image') &&
+                    <div
+                        className=" rounded-lg bg-contain bg-cover"
+                        style={{
+                            backgroundImage: `url(storage/${message.media_content_path})`,
+                            backgroundSize: 'cover',
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                            maxHeight: '90vh',
+                            height: '80vh',
+                            minHeight: '70vh',
+                            maxWidth: '70vh',
+                            width: '50vh',
+                            minWidth: '70vh',
+
+                        }}
+                    />
+                }</>
+                <>{
+                    (message.media_type == 'video') &&
+                    < video controls autoPlay
+                        src={'/storage/' + message.media_content_path}
+                        style={{
+                            width: '100vh',
+                        }}>
+                    </video >
+                }</>
+
+            </Modal>
 
         </>
     );

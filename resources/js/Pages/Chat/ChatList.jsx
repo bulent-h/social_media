@@ -36,7 +36,7 @@ export default function ChatList({ users, handleSelectChat }) {
     return (
         <>
             {/* <!-- Header --> */}
-            <div className="py-2 px-3 border-none border-r-indigo-500 bg-indigo-500 dark:bg-gray-900 flex flex-row justify-between items-center ">
+            <div className="py-2 px-3 border-none border-r-indigo-500 bg-indigo-500 dark:bg-[#111120] flex flex-row justify-between items-center ">
                 <Link href={route('profile.edit')}>
                     <div className="flex flex-row" >
                         {/* <img className="bg-gray-200 dark:bg-gray-700 h-12 w-12 rounded-full " /> */}
