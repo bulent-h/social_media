@@ -83,8 +83,6 @@ export default function Chat(auth) {
         }
 
     }, [currentUserChat, messages]);
-
-
     return (
         <>
             <ChatContext.Provider value={{ auth, currentUserChat, fetchMessages, addToMessageContainer, replyMessage, setReplyMessage }}>
