@@ -84,7 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/story', [StoryController::class, 'store'])->name('story.store');
     Route::get('/stories', [StoryController::class, 'index'])->name('stories.get');
     Route::get('/stories/{user}', [StoryController::class, 'viewUserStory'])->name('story.view.user');
-    Route::get('/stories/{user}/{story}', [StoryController::class, 'show'])->name('story.show');
+    // Route::get('/stories/{user}/{story}', [StoryController::class, 'show'])->name('story.show');
 
 
     Route::get('/posts/create',[PostController::class,'create'])->name('posts.create');

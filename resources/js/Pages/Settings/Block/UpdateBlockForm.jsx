@@ -64,6 +64,8 @@ export default function UpdateBlockForm({ mustVerifyEmail, status, className = '
         axios.post(route('user.block', { user: user }))
             .then((response) => {
                 handleSearch()
+                fetchUsers();
+
             })
             .catch(error => {
                 console.error('Error unblocking user:', error);

@@ -37,13 +37,21 @@ export default function Stories() {
                 {(users) &&
                     users.map((user) => (
                         (user.stories.length != 0) &&
-                        <a key={user.id} href={route('story.show', { story: user.stories[0], user: user })} className="">
+                        <a key={user.id} href={route('story.view.user', { user: user })} className="">
 
-                            <div  className="flex flex-col items-center justify-center w-20 mx-1">
-                                <div
+                            <div className="flex flex-col items-center justify-center w-20 mx-1">
+
+                                {(user?.avatar) ?
+                                    <div
+                                        className='shrink-0 m-1 border-1 h-16 w-16 bg-gray-200  rounded-full bg-center bg-cover bg-no-repeat'
+                                        style={{ backgroundImage: `url(/storage/${user.avatar})` }}>
+                                    </div>
+                                    :
+                                    <div
                                     className='shrink-0 m-1 border-1 h-16 w-16 bg-gray-200  rounded-full bg-center bg-cover bg-no-repeat'
-                                    style={(user.avatar) && { backgroundImage: `url(/storage/${user.avatar})` }}>
+                                    >
                                 </div>
+                                }
 
                                 <div className="flex items-center justify-center">
                                     <p className="w-20 text-xs truncate whitespace-nowrap">{user.name}</p>

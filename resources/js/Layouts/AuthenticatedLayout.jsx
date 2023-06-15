@@ -41,7 +41,7 @@ export default function AuthenticatedLayout({ user, children }) {
 
   return (
     <div className="flex h-screen bg-gray-200 justify-center md:px-0">
-      <div className="flex 2xl:w-2/3 w-full ">
+      <div className="flex 2xl:w-2/3 w-full shadow-xl">
         <Sidebar />
         <div className="flex flex-col flex-1 overflow-hidden">
           <div className='lg:hidden'><HeaderNavbar className=''/></div>

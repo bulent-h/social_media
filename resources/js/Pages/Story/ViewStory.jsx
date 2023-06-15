@@ -7,58 +7,51 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(relativeTime);
 
-export default function ViewStory({ user, stories, story }) {
+export default function ViewStory({ user, stories }) {
 
 
     const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
-    const [indexes, setIndexes] = useState([]);
+    const [indexes, setIndexes] = useState(null);
+    const [currentStory, setCurrentStory] = useState(stories[0]);
 
-    function handleSwitch() {
-        // if(stories.length > currentStoryIndex){
-        // const { user, story } = stories[currentStoryIndex];
-        const storyTo = stories[0]
-        // const storyUrl = route('story.show', { user, storyTo });
-        // console.log(storyTo)
-        // console.log(story)
-        console.log(indexes)
-
-        // window.location.href = storyUrl;
-        // }
-    }
-    useEffect(() => {
-        if (stories != undefined) {
-            const storyRoutes = stories.map((story) => route('story.show', { user, story }));
-            setIndexes((prevIndexes) => [...prevIndexes, ...storyRoutes]);
+    function handleNext() {
+        if (stories.length > currentStoryIndex + 1) {
+            setCurrentStory(stories[currentStoryIndex + 1])
+            setCurrentStoryIndex(currentStoryIndex + 1)
         }
-        console.log(indexes)
-    }, [])
-
-
+    }
+    function handlePrev() {
+        if (0 <= currentStoryIndex - 1) {
+            setCurrentStory(stories[currentStoryIndex - 1])
+            setCurrentStoryIndex(currentStoryIndex - 1)
+        }
+    }
     return (
         <div className="bg-black ">
-
-            <div onClick={() => handleSwitch()} className="absolute top-5 bg-transparent z-10 flex w-full" >
-                <p className='text-red-500'>
-                    cewopopwep
-                </p>
-            </div >
-
             <div className="py-2 flex items-center justify-center h-screen">
                 <div className='h-full py-4'>
+                    <div className="bg-gray-600 relative  rounded-2xl shadow-lg w-full h-full" style={{ width: '30em' }}>
+                        <div onClick={() => handleNext()} className="absolute inset-y-0 -right-10 bg-transparent z-10 flex items-center" >
+                            <p className=' text-3xl font-bold text-gray-200 cursor-pointer'>
+                                &#62;
+                            </p>
+                        </div >
+                        <div onClick={() => handlePrev()} className="absolute inset-y-0 -left-10 bg-transparent z-10 flex items-center" >
+                            <p className=' text-3xl font-bold text-gray-200 cursor-pointer'>
+                                &#60;
+                            </p>
+                        </div >
 
-                    <div className="bg-gray-600 relative  rounded-2xl overflow-hidden shadow-lg w-full h-full" style={{ width: '30em' }}>
-
-
-                        <div className="absolute top-5 bg-transparent z-10 flex w-full" >
+                        <div className="absolute top-3 bg-transparent z-10 flex w-full" >
                             {
                                 stories.map((story) => (
-                                    < a key={story.id} href={route('story.show', { user, story })}
-                                        className={'mx-2 rounded-full bg-white opacity-25 h-1 w-full ' + (route().current('story.show', { user, story })
-                                            && 'bg-white opacity-95')}></a>
+                                    < div key={story.id}
+                                        className={'mx-2 rounded-full bg-white opacity-25 h-1 w-full ' + ((currentStory.id == story.id)
+                                            && 'bg-white opacity-95')}></div>
                                 ))
                             }
                         </div >
-                        <div className="absolute top-10 bg-transparent z-10 flex items-center " >
+                        <div className="absolute top-6 bg-transparent z-10 flex items-center " >
                             <a href={route('user.show', user)} className='mx-4'>
                                 <div
                                     className=" bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full"
@@ -70,32 +63,32 @@ export default function ViewStory({ user, stories, story }) {
 
                                 <div className='text-white'>
                                     <p>{user.name}</p>
-                                    <p>{dayjs(story.created_at).fromNow()}</p>
+                                    <p>{dayjs(currentStory.created_at).fromNow()}</p>
                                 </div>
                             </a>
 
                         </div>
 
-                        <div className="flex items-center justify-center h-full">
-                            {(story) &&
+                        <div className="flex items-center justify-center h-full overflow-hidden">
+                            {(currentStory) &&
                                 <>
                                     {
-                                        (story.media_type == 'image') ?
+                                        (currentStory.media_type == 'image') ?
                                             <div
                                                 className=" bg-contain bg-no-repeat bg-center  h-full bg-origin-padding w-full"
-                                                style={{ backgroundImage: `url(/storage/${story?.media_url})` }}
+                                                style={{ backgroundImage: `url(/storage/${currentStory?.media_url})` }}
 
                                             >
                                             </div>
                                             :
                                             < video controls autoPlay
-                                                src={'/storage/' + story.media_url}>
+                                                src={'/storage/' + currentStory.media_url}>
                                             </video >
                                     }
                                 </>
 
                             }
-                            {(stories.length != 0 && story == null) &&
+                            {(stories.length != 0 && currentStory == null) &&
                                 <video controls autoPlay className=' mfkewlmfekwl'
                                     src={'/storage/' + stories[0].media_url}>
                                 </video >
