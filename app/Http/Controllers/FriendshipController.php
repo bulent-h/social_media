@@ -72,7 +72,7 @@ class FriendshipController extends Controller
     {
         $user = User::findOrFail($user_requested);
 
-        // Delete the friendship where either requester = auth.id and user_requested = user.id
+        
         // OR requester = user.id and user_requested = auth.id
         Friendship::where([
             ['requester', '=', $request->user()->id],
