@@ -74,14 +74,14 @@ class FriendshipController extends Controller
         $user = User::findOrFail($user_requested);
 
 
-        // OR requester = user.id and user_requested = auth.id
+
         Friendship::where([
             ['requester', '=', $request->user()->id],
             ['user_requested', '=', $user->id]
         ])->orWhere([
-                ['requester', '=', $user->id],
-                ['user_requested', '=', $request->user()->id]
-            ])->delete();
+                    ['requester', '=', $user->id],
+                    ['user_requested', '=', $request->user()->id]
+                ])->delete();
 
         return back()->with('status', 'Friendship removed.');
     }
@@ -95,24 +95,25 @@ class FriendshipController extends Controller
         return redirect()->back();
     }
 
-    // public function getFriendRequests()
-    // {
-    //     $userId = auth()->user()->id;
+    public function getFriendRequests()
+    {
+        $userId = auth()->user()->id;
 
-    //     $friendRequests = Friendship::where('user_requested', $userId)
-    //         ->where('status', 0)
-    //         ->get()
-    //         ->map(function ($friendship) {
-    //             $requester = User::find($friendship->requester);
+        $friendRequests = Friendship::where('user_requested', $userId)
+            ->where('status', 0)
+            ->get()
+            ->map(function ($friendship) {
+                $requester = User::find($friendship->requester);
 
-    //             return response()->json([
-    //                 'id' => $requester->id,
-    //                 'name' => $requester->name,
-    //                 'username' => $requester->username,
-    //                 'avatar' => $requester->avatar,
-    //             ]);
-    //         });
+                return [
+                    'id' => $requester->id,
+                    'name' => $requester->name,
+                    'username' => $requester->username,
+                    'avatar' => $requester->avatar,
+                ];
+            });
 
+        return response()->json($friendRequests);
+    }
 
-    // }
 }
