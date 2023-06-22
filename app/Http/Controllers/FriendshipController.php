@@ -9,6 +9,26 @@ use Inertia\Inertia;
 
 class FriendshipController extends Controller
 {
+
+    public function getFriendRequests()
+    {
+        $userId = auth()->user()->id;
+
+        $friendRequests = Friendship::where('user_requested', $userId)
+            ->where('status', 0)
+            ->get()
+            ->map(function ($friendship) {
+                $requester = User::find($friendship->requester);
+
+                return [
+                    'id' => $requester->id,
+                    'name' => $requester->name,
+                    'username' => $requester->username,
+                    'avatar' => $requester->avatar,
+                ];
+            });
+        return response()->json($friendRequests);
+    }
     public function showFriends()
     {
 
@@ -92,25 +112,6 @@ class FriendshipController extends Controller
         return redirect()->back();
     }
 
-    public function getFriendRequests()
-    {
-        $userId = auth()->user()->id;
-
-        $friendRequests = Friendship::where('user_requested', $userId)
-            ->where('status', 0)
-            ->get()
-            ->map(function ($friendship) {
-                $requester = User::find($friendship->requester);
-
-                return [
-                    'id' => $requester->id,
-                    'name' => $requester->name,
-                    'username' => $requester->username,
-                    'avatar' => $requester->avatar,
-                ];
-            });
-
-        return response()->json($friendRequests);
-    }
+    
 
 }
