@@ -31,6 +31,7 @@ const FriendCard = ({ user }) => {
                     color="purple"
                 // action={() => onMessage(user.id)}
                 />
+                
                 <FriendActionButton
                     label="Remove Friend"
                     color="red"
