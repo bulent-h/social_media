@@ -46,8 +46,6 @@ export default function Home({ auth }) {
             <Head title="Home" />
             <Stories></Stories>
 
-
-
         </AuthenticatedLayout>
     );
 }
