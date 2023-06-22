@@ -10,35 +10,36 @@ use Inertia\Inertia;
 class FriendshipController extends Controller
 {
     public function showFriends()
-{
-    $userId = auth()->user()->id;
+    {
 
-    $friends = Friendship::where(function ($query) use ($userId) {
-        $query->where('requester', $userId)
-            ->orWhere('user_requested', $userId);
-    })->where('status', 1)
-    ->get()
-    ->map(function ($friendship) use ($userId) {
-        if ($friendship->requester === $userId) {
-            $friendId = $friendship->user_requested;
-        } else {
-            $friendId = $friendship->requester;
-        }
+        $userId = auth()->user()->id;
 
-        $friend = User::find($friendId);
+        $friends = Friendship::where(function ($query) use ($userId) {
+            $query->where('requester', $userId)
+                ->orWhere('user_requested', $userId);
+        })->where('status', 1)
+            ->get()
+            ->map(function ($friendship) use ($userId) {
+                if ($friendship->requester === $userId) {
+                    $friendId = $friendship->user_requested;
+                } else {
+                    $friendId = $friendship->requester;
+                }
 
-        return [
-            'id' => $friend->id,
-            'name' => $friend->name,
-            'username' => $friend->username,
-            'avatar' => $friend->avatar,
-        ];
-    });
+                $friend = User::find($friendId);
 
-    return Inertia::render('MyFriends', [
-        'friends' => $friends,
-    ]);
-}
+                return [
+                    'id' => $friend->id,
+                    'name' => $friend->name,
+                    'username' => $friend->username,
+                    'avatar' => $friend->avatar,
+                ];
+            });
+
+        return Inertia::render('MyFriends', [
+            'friends' => $friends,
+        ]);
+    }
 
     public function sendFriendRequest(User $user)
     {
@@ -72,7 +73,7 @@ class FriendshipController extends Controller
     {
         $user = User::findOrFail($user_requested);
 
-        
+
         // OR requester = user.id and user_requested = auth.id
         Friendship::where([
             ['requester', '=', $request->user()->id],
@@ -93,4 +94,25 @@ class FriendshipController extends Controller
 
         return redirect()->back();
     }
+
+    // public function getFriendRequests()
+    // {
+    //     $userId = auth()->user()->id;
+
+    //     $friendRequests = Friendship::where('user_requested', $userId)
+    //         ->where('status', 0)
+    //         ->get()
+    //         ->map(function ($friendship) {
+    //             $requester = User::find($friendship->requester);
+
+    //             return response()->json([
+    //                 'id' => $requester->id,
+    //                 'name' => $requester->name,
+    //                 'username' => $requester->username,
+    //                 'avatar' => $requester->avatar,
+    //             ]);
+    //         });
+
+
+    // }
 }
