@@ -72,9 +72,6 @@ class FriendshipController extends Controller
     public function removeFriend(Request $request, $user_requested)
     {
         $user = User::findOrFail($user_requested);
-
-
-
         Friendship::where([
             ['requester', '=', $request->user()->id],
             ['user_requested', '=', $user->id]
