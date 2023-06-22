@@ -30,17 +30,52 @@ export default function ViewStory({ user, stories }) {
         <div className="bg-black ">
             <div className="py-2 flex items-center justify-center h-screen">
                 <div className='h-full py-4'>
-                    <div className="bg-gray-600 relative  rounded-2xl shadow-lg w-full h-full" style={{ width: '30em' }}>
+                    <div className="bg-gray-900 relative  rounded-2xl shadow-lg w-full h-full" style={{ width: '30em' }}>
                         <div onClick={() => handleNext()} className="absolute inset-y-0 -right-10 bg-transparent z-10 flex items-center" >
                             <p className=' text-3xl font-bold text-gray-200 cursor-pointer'>
-                                &#62;
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="icon icon-tabler icon-tabler-chevron-right"
+                                    width={24}
+                                    height={24}
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={2}
+                                    stroke="currentColor"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M9 6l6 6l-6 6" />
+                                </svg>
                             </p>
                         </div >
                         <div onClick={() => handlePrev()} className="absolute inset-y-0 -left-10 bg-transparent z-10 flex items-center" >
                             <p className=' text-3xl font-bold text-gray-200 cursor-pointer'>
-                                &#60;
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="icon icon-tabler icon-tabler-chevron-left"
+                                    width={24}
+                                    height={24}
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={2}
+                                    stroke="currentColor"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M15 6l-6 6l6 6" />
+                                </svg>
                             </p>
                         </div >
+                        <div className="absolute bottom-0 left-0 w-full  bg-transparent z-10 " >
+                            <div className='bg-white opacity-40 rounded-b-xl'>
+                                <p className='text-lg font-bold text-black cursor-pointer p-2 '>
+                                    {currentStory.content}
+                                </p>
+                            </div>
+                        </div>
 
                         <div className="absolute top-3 bg-transparent z-10 flex w-full" >
                             {
@@ -100,9 +135,9 @@ export default function ViewStory({ user, stories }) {
 
                 </div>
 
-                <div className='absolute top-0 right-0 hover:bg-red-500 px-4 py-3 m-3 rounded-full'>
+                <div className='absolute top-0 right-0  px-4 py-3 m-3 rounded-full hover:scale-110 cursor-pointer'>
                     {/* <button id="removeBtn" type='button' onClick={handleRemoveFile} className="text-red-500 dark:text-red-500 hover:text-gray-200 mx-1">&#10005;</button> */}
-                    < a href={route('home')} className='shrink-0 justify-end text-red-300 text-2xl'>&#10005;</a>
+                    < a href={route('home')} className='shrink-0 justify-end text-gray-100  font-bold  text-2xl'>&#10005;</a>
                 </div>
 
 

@@ -47,12 +47,9 @@ class StoryController extends Controller
         ])->get();
         return $usersWithStories;
     }
-
     function myStories(Request $request){
-
         $myStories = $request->user()->stories;
         return $myStories;
-
     }
     public function viewUserStory(Request $request)
     {
@@ -64,7 +61,6 @@ class StoryController extends Controller
     {
         $user = $request->user();
         $stories = $user->stories;
-
         return Inertia::render('Story/ManageStory', ['stories' => $stories, 'user' => $user]);
     }
     public function show(Request $request)
@@ -72,7 +68,6 @@ class StoryController extends Controller
         $user = User::findOrFail($request->user);
         $story = Story::findOrFail($request->story);
         $stories = $user->stories;
-
         return Inertia::render(
             'Story/ViewStory',
             [
@@ -82,12 +77,9 @@ class StoryController extends Controller
             ]
         );
     }
-
-    // ...
     public function create(Request $request)
     {
         return Inertia::render('Story/CreateStory');
-
     }
 
     public function store(Request $request)

@@ -84,7 +84,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/story', [StoryController::class, 'create'])->name('story.create');
     Route::post('/story', [StoryController::class, 'store'])->name('story.store');
     Route::get('/stories', [StoryController::class, 'index'])->name('stories.get');
-
     Route::get('/stories/{user}', [StoryController::class, 'viewUserStory'])->name('story.view.user');
     Route::get('/my-stories', [StoryController::class, 'viewMyStory'])->name('story.mystories');
 
