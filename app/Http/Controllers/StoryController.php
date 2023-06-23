@@ -47,7 +47,8 @@ class StoryController extends Controller
         ])->get();
         return $usersWithStories;
     }
-    function myStories(Request $request){
+    function myStories(Request $request)
+    {
         $myStories = $request->user()->stories;
         return $myStories;
     }
@@ -70,7 +71,7 @@ class StoryController extends Controller
         $stories = $user->stories;
         return Inertia::render(
             'Story/ViewStory',
-            ['stories' => $stories,'user' => $user,'story' => $story]
+            ['stories' => $stories, 'user' => $user, 'story' => $story]
         );
     }
     public function create(Request $request)
@@ -111,11 +112,9 @@ class StoryController extends Controller
             'content' => 'required|string',
             'media' => 'nullable|file|max:2048|mimes:jpeg,jpg,png,gif,mp4,webm',
         ]);
-
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-
         $story = Story::findOrFail($id);
         $story->title = $request->input('title');
         $story->content = $request->input('content');
@@ -124,17 +123,13 @@ class StoryController extends Controller
             if ($story->media_url) {
                 Storage::delete($story->media_url);
             }
-
             $file = $request->file('media');
             $mediaUrl = $file->store('public/media');
             $story->media_url = $mediaUrl;
         }
-
         $story->save();
-
         return response()->json($story);
     }
-
     public function destroy(Request $request, Story $story)
     {
         if ($story->user_id !== $request->user()->id) {
@@ -144,7 +139,6 @@ class StoryController extends Controller
             Storage::delete($story->media_url);
         }
         $story->delete();
-
-        return response()->json('Story deleted successfully');
+        return response()->json('Story deleted');
     }
 }

@@ -28,7 +28,6 @@ export default function ViewStory({ user, stories }) {
         }
     }
     async function handleDelete() {
-
         await axios.post(route('story.destroy', currentStory))
     }
     return (
@@ -170,11 +169,11 @@ export default function ViewStory({ user, stories }) {
                 </div>
 
                 <div className='absolute top-0 right-0  px-4 py-3 m-3 rounded-full hover:scale-110 cursor-pointer'>
-                    {/* <button id="removeBtn" type='button' onClick={handleRemoveFile} className="text-red-500 dark:text-red-500 hover:text-gray-200 mx-1">&#10005;</button> */}
-                    < a href={route('home')} className='shrink-0 justify-end text-gray-100  font-bold  text-2xl'>&#10005;</a>
+                    <a href={route('home')}
+                        className='shrink-0 justify-end text-gray-100  font-bold  text-2xl'>
+                        &#10005;
+                    </a>
                 </div>
-
-
             </div>
 
 
