@@ -6,7 +6,7 @@ import { format, formatDistanceToNow } from 'date-fns';
 import Post from '@/Components/Post';
 
 const UserShow = () => {
-    const { user, auth, authUserSentFriendRequest, authUserReceivedFriendRequest, isFriends, authUserHasBlocked, errors, posts} = usePage().props;
+    const { user, auth, authUserSentFriendRequest, authUserReceivedFriendRequest, isFriends, authUserHasBlocked, errors, posts } = usePage().props;
     const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
 
@@ -137,7 +137,10 @@ const UserShow = () => {
                                     ) : (
                                         <>
                                             <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" onClick={handleBlockUser}>Block</a>
-                                            <a href="/chat" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Message</a>
+
+                                            <a href={route('chat',{selectedUser:user.id})} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                                                Message
+                                            </a>
                                         </>
                                     )}
                                 </div>
@@ -146,7 +149,7 @@ const UserShow = () => {
                     </div>
                 </div>
             </div>
-            {posts.map((singlePost) => <Post user={user} auth={auth} initialPost={singlePost} key={singlePost.id}/>)}
+            {posts.map((singlePost) => <Post user={user} auth={auth} initialPost={singlePost} key={singlePost.id} />)}
         </AuthenticatedLayout>
     );
 };
