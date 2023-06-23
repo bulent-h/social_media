@@ -139,18 +139,17 @@ export default function ViewStory({ user, stories }) {
                                 <div className="flex items-center justify-center h-full overflow-hidden">
                                     {(currentStory) &&
                                         <>
-                                            {
-                                                (currentStory.media_type == 'image') ?
-                                                    <div
-                                                        className=" bg-contain bg-no-repeat bg-center  h-full bg-origin-padding w-full"
-                                                        style={{ backgroundImage: `url(/storage/${currentStory?.media_url})` }}
+                                            {(currentStory.media_type == 'image') ?
+                                                <div
+                                                    className=" bg-contain bg-no-repeat bg-center  h-full bg-origin-padding w-full"
+                                                    style={{ backgroundImage: `url(/storage/${currentStory?.media_url})` }}
 
-                                                    >
-                                                    </div>
-                                                    :
-                                                    < video controls autoPlay
-                                                        src={'/storage/' + currentStory.media_url}>
-                                                    </video >
+                                                >
+                                                </div>
+                                                :
+                                                < video controls autoPlay
+                                                    src={'/storage/' + currentStory.media_url}>
+                                                </video >
                                             }
                                         </>
                                     }
