@@ -53,7 +53,12 @@ export default function FriendRequests() {
                         >
                             Accept
                         </button>
-                        
+                        <button
+                            className="text-xs text-red-600 hover:text-red-800 ml-2"
+                            onClick={() => handleRejectRequest(request.id)}
+                        >
+                            Reject
+                        </button>
                     </div>
                 </div>
             ))}

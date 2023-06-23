@@ -99,6 +99,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{postId}', [PostController::class, 'destroy'])->name('post.destroy');
 
     Route::get('/my-friends', [FriendshipController::class, 'showFriends'])->name('user.showFriends');
+    Route::get('/friend-requests', [FriendshipController::class, 'getFriendRequests']);
+
 
 
 });
