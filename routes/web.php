@@ -31,12 +31,15 @@ use App\Http\Controllers\StoryController;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    if (Auth::guest()) {
+        return redirect()->route('login');
+    }
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
 });
 
 Route::get('/home', function () {
@@ -90,12 +93,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-my-stories', [StoryController::class, 'myStories'])->name('mystories.get');
 
 
-    Route::get('/posts/create',[PostController::class,'create'])->name('posts.create');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::post('/votes/{postId}/{optionId}', [PostController::class, 'vote'])->name('post.vote');
     Route::post('/posts/{post}/like', [PostController::class, 'toggleLike'])->name('posts.like');
     Route::get('/posts/{post}/comments', [CommentController::class, 'show'])->name('comment.show');
     Route::post('/comment/{postId}', [CommentController::class, 'store'])->name('comment.store');
+    Route::delete('/posts/{postId}', [PostController::class, 'destroy'])->name('post.destroy');
+
+    Route::get('/my-friends', [FriendshipController::class, 'showFriends'])->name('user.showFriends');
+    Route::get('/friend-requests', [FriendshipController::class, 'getFriendRequests']);
 
 
 

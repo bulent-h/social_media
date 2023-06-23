@@ -81,7 +81,7 @@ const FindFriends = () => {
                             ) : (
                                 <ul >
                                     {searchResults.map((user) => (
-                                        <li key={user.id} className="flex items-center space-x-4">
+                                        <li key={user.id} className="flex items-center space-x-4 mb-4">
                                             <a href={route('user.show', { user: user.id })} className="flex items-center space-x-4 hover:underline">
                                                 <div
                                                     className="bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full"

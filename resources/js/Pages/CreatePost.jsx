@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 
 export default function CreatePost({ auth }) {
@@ -10,10 +10,21 @@ export default function CreatePost({ auth }) {
     const [video, setVideo] = useState(null);
     const [pollOptions, setPollOptions] = useState(['', '']);
     const [pollQuestion, setPollQuestion] = useState('');
+    const [preview, setPreview] = useState(null);
+
+    const fileInput = useRef();
 
     const handleFileChange = (e) => {
-        if (type === 'image') setImage(e.target.files[0]);
-        if (type === 'video') setVideo(e.target.files[0]);
+        if (type === 'image' || type === 'video') {
+            setPreview(URL.createObjectURL(e.target.files[0]));
+            if (type === 'image') setImage(e.target.files[0]);
+            if (type === 'video') setVideo(e.target.files[0]);
+        }
+    };
+
+    const removeFile = () => {
+        setPreview(null);
+        fileInput.current.value = '';
     };
 
     const handleSubmit = (e) => {
@@ -85,12 +96,45 @@ export default function CreatePost({ auth }) {
                             <label className="block text-sm font-medium text-gray-700">
                                 Choose your {type}
                             </label>
-                            <input
-                                type="file"
-                                accept={`${type}/*`}
-                                onChange={handleFileChange}
-                                className="mt-1 block w-full pl-3 pr-10 py-2 text-base   border-gray-300 focus:outline-none focus:ring-purple-700 focus:border-purple-800 sm:text-sm rounded-full"
-                            />
+                            <div className="mt-1 relative">
+                                <input
+                                    ref={fileInput}
+                                    type="file"
+                                    accept={`${type}/*`}
+                                    onChange={handleFileChange}
+                                    className="absolute w-full h-full opacity-0 cursor-pointer"
+                                />
+                                <div className="px-4 py-2 text-base text-center bg-gray-200 rounded-full flex justify-center items-center space-x-2 cursor-pointer">
+                                    {(type === 'image') && (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-photo-plus" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M15 8h.01"></path>
+                                            <path d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5"></path>
+                                            <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l4 4"></path>
+                                            <path d="M14 14l1 -1c.67 -.644 1.45 -.824 2.182 -.54"></path>
+                                            <path d="M16 19h6"></path>
+                                            <path d="M19 16v6"></path>
+                                        </svg>
+                                    )}
+                                    {(type === 'video') && (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-video-plus" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z"></path>
+                                            <path d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+                                            <path d="M7 12l4 0"></path>
+                                            <path d="M9 10l0 4"></path>
+                                        </svg>
+                                    )}
+                                    <span>{preview ? 'Change file' : `Upload ${type}`}</span>
+                                </div>
+                                {preview && (
+                                    <div className="mt-2 relative flex justify-center items-center">
+                                        {type === 'image' && <img src={preview} alt="Preview" className="h-60 w-auto" />}
+                                        {type === 'video' && <video src={preview} className="h-60 w-auto" controls />}
+                                        <button type="button" onClick={removeFile} className="absolute top-0 right-0 text-red-600 rounded-full p-1 font-bold">X</button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
 

@@ -12,7 +12,8 @@ const CommentModal = ({ show, comments, handleClose, handleSubmit, post }) => {
 
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+       
+        <div className="fixed inset-0 flex items-center justify-center z-50 ">
             <div className="modal-content bg-white w-3/4 md:w-1/2 lg:w-1/3 p-6 rounded-lg shadow-lg relative">
                 <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-700" onClick={handleClose}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
@@ -39,7 +40,7 @@ const CommentModal = ({ show, comments, handleClose, handleSubmit, post }) => {
                         <button
                             type="submit"
                             className={`absolute right-2 top-2 text-lg ${commentContent ? 'text-purple-500' : 'text-gray-400'}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message-forward" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-message-forward" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"></path>
                                 <path d="M13 9l2 2l-2 2"></path>
@@ -51,6 +52,8 @@ const CommentModal = ({ show, comments, handleClose, handleSubmit, post }) => {
 
             </div>
         </div>
+        
+        
     );
 };
 

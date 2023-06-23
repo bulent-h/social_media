@@ -18,6 +18,9 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        // $file = $request->file('video_path');
+        // return $file->getMimeType();
+
         if (!auth()->check()) {
             return response()->json(['error' => 'User not authenticated'], 401);
         }
@@ -34,7 +37,7 @@ class PostController extends Controller
             'type' => 'required|in:text,image,video,poll',
             'content' => 'nullable|string',
             'image_path' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:20000',
-            'video_path' => 'mimes:video/mp4,mov,ogg,qt,mkv,mks,mk3d| max:20000',
+            'video_path' => 'mimes:mp4,mov,ogg,qt,mkv,mks,mk3d| max:20000',
             'poll_question' => 'required_if:type,poll|string',
             'poll_options' => 'required_if:type,poll|array|min:2|max:5',
             'poll_options.*' => 'required_with:poll_options|string',
@@ -139,6 +142,21 @@ class PostController extends Controller
 
         return response()->json(['post' => $post]);
     }
+
+    public function destroy($postId)
+    {
+        $post = Post::find($postId);
+
+        if ($post) {
+            $post->delete();
+        } else {
+            return back()->withErrors(['post_not_found' => 'Could not find the post to delete.']);
+        }
+
+        return redirect()->back();
+    }
+
+
 
 
 

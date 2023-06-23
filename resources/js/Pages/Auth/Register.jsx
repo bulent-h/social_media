@@ -32,7 +32,7 @@ export default function Register() {
             <Head title="Register" />
 
             <form onSubmit={submit}>
-                <div class="mt-6">
+                <div className="mt-6">
 
 
                     <TextInput
