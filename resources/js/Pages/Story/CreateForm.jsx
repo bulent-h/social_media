@@ -9,21 +9,16 @@ import { useState, useEffect } from 'react';
 export default function UpdateProfileInformation({ className = '' }) {
     const user = usePage().props.auth.user;
     const [fileType, setFileType] = useState();
-
     const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
         content: null,
         file: null,
         type: null,
     });
     const [fileUrl, setFileUrl] = useState();
-
     function handleFileChange(e) {
         var tmp = e.target.files[0];
         checkType(tmp);
-
         setData('file', e.target.files[0])
-        // setData('type',fileType);
-
         setFileUrl(
             URL.createObjectURL(tmp)
         );
@@ -56,22 +51,18 @@ export default function UpdateProfileInformation({ className = '' }) {
     }
     const submit = (e) => {
         e.preventDefault();
-        data.type=fileType;
+        data.type = fileType;
         post(route('story.store'));
-
     };
     return (
         <section className={className}>
-            {/* <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Profile Information</h2>
-
-            </header> */}
-
+            <header className='py-6'>
+                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Create Story</h2>
+            </header>
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div className='grid grid-cols-12 gap-4'>
                     <div className='my-4 col-span-12 grid grid-cols-12 gap-4'>
                         <div className='col-start-2 col-span-2 flex items-center justify-start '>
-
                             <InputLabel className="font-semibold" htmlFor="content" value="Content" />
                         </div>
                         <TextInputRounded
@@ -86,16 +77,12 @@ export default function UpdateProfileInformation({ className = '' }) {
 
                         <InputError className="mt-2" message={errors.content} />
                     </div>
-
-
                     <div className='my-4 col-span-12 grid grid-cols-12 gap-4'>
                         <div className='col-start-2 col-span-2 flex items-center justify-start '>
                             <InputLabel className="font-semibold" value="Upload A Story" ></InputLabel>
                         </div>
                         <input id="file" type="file" className="sr-only"
                             onChange={handleFileChange} />
-
-
                         <div className='col-span-7 col-start-5'>
                             {
                                 (fileUrl) &&
@@ -112,7 +99,6 @@ export default function UpdateProfileInformation({ className = '' }) {
                                                     style={{ backgroundImage: 'url(' + fileUrl + ')' }}>
                                                 </div>
                                             }
-
                                             {
                                                 (fileUrl && fileType == 'video') &&
                                                 <video
@@ -123,15 +109,11 @@ export default function UpdateProfileInformation({ className = '' }) {
                                         </div>
                                     </div>
                                 </div>
-
                             }
-
-
                             {
                                 (fileUrl == null)
                                 &&
                                 <label htmlFor="file" className=" w-full block">
-
                                     <div className='flex items-center'>
                                         <div
                                             className=" bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-700  bg-origin-padding w-full h-96 rounded-lg flex items-center justify-center"
@@ -140,14 +122,9 @@ export default function UpdateProfileInformation({ className = '' }) {
                                         </div>
                                     </div>
                                 </label>
-
                             }
-
                         </div>
                     </div>
-
-
-
                     <div className='my-4 col-span-12 grid grid-cols-12 gap-4'>
                         <div className='col-end-12 col-span-2 flex items-center justify-end '>
                             <PrimaryButton disabled={processing}>Save</PrimaryButton>
@@ -161,12 +138,7 @@ export default function UpdateProfileInformation({ className = '' }) {
                             <p className="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
                         </Transition>
                     </div>
-
-
-
-
                 </div>
-
             </form>
         </section >
     );

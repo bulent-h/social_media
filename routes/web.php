@@ -86,7 +86,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/stories', [StoryController::class, 'index'])->name('stories.get');
     Route::get('/stories/{user}', [StoryController::class, 'viewUserStory'])->name('story.view.user');
     Route::get('/my-stories', [StoryController::class, 'viewMyStory'])->name('story.mystories');
-
     Route::post('/story/{story}', [StoryController::class, 'destroy'])->name('story.destroy');
     Route::get('/get-my-stories', [StoryController::class, 'myStories'])->name('mystories.get');
 

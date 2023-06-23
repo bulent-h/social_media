@@ -70,11 +70,7 @@ class StoryController extends Controller
         $stories = $user->stories;
         return Inertia::render(
             'Story/ViewStory',
-            [
-                'stories' => $stories,
-                'user' => $user,
-                'story' => $story
-            ]
+            ['stories' => $stories,'user' => $user,'story' => $story]
         );
     }
     public function create(Request $request)
@@ -105,7 +101,6 @@ class StoryController extends Controller
         $story->media_type = $request->input('type');
         $story->user_id = $request->user()->id;
         $story->save();
-
         return response()->json($story, 201);
     }
 

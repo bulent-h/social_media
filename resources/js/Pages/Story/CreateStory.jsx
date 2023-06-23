@@ -9,9 +9,8 @@ export default function CreateStory({ auth, mustVerifyEmail, status }) {
             user={auth.user}
         >
             <Head title="Profile" />
-
             <div>
-                <div className=" mx-auto  sm:px-6  lg:px-8 space-y-6">
+                <div className=" bg-white dark:bg-gray-900 mx-auto sm:px-6 lg:px-8 space-y-6">
                 <CreateForm></CreateForm>
                 </div>
             </div>
