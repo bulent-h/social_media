@@ -14,9 +14,9 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen space-y-6">
+    <div className="relative flex min-h-screen space-y-6 ">
       {/* Sidebar */}
-      <div className="object-none object-left bg-white text-purple-700 w-20 lg:w-full space-y-6 px-2 inset-y-0 left-0 border-r-2 border-gray-200 2xl:relative lg:mx-auto">
+      <div className="object-none object-left bg-white text-purple-700 w-20 lg:w-full space-y-6 px-2 inset-y-0 left-0 border-r-2 border-gray-200 2xl:relative lg:mx-auto overflow-y-auto">
 
         <div className="flex mt-6 justify-center">
           <Link href="/">

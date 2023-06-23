@@ -11,7 +11,7 @@ export default function AuthenticatedLayout({ children }) {
       backgroundSize: 'cover',
       backgroundImage: "url('MainBackground.png')",
     }} className="flex h-screen bg-gray-200 justify-center md:px-0">
-      <div className="flex 2xl:w-2/3 w-full ">
+      <div className="flex 2xl:w-2/3 w-full">
         <Sidebar />
         <div className="flex flex-col flex-1 overflow-hidden">
           <div className='lg:hidden'><HeaderNavbar className='' /></div>
@@ -20,7 +20,7 @@ export default function AuthenticatedLayout({ children }) {
         <div className="block hidden w-0 lg:w-64 lg:border-l-2 border-gray-200 lg:flex flex-col ">
           {/* Additional content */}
           {/* Replace the placeholder content below with your desired content */}
-          <div className="bg-white py-4 px-6 flex-1">
+          <div className="bg-white py-4 flex-1">
             <RightSidebar />
           </div>
         </div>
