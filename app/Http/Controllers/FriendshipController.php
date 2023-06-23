@@ -74,14 +74,6 @@ class FriendshipController extends Controller
         return redirect()->back()->withErrors(['block' => 'You have blocked this user.']);
     }
 
-
-    public function acceptFriendRequest(User $user)
-    {
-        $authUser = auth()->user();
-        $authUser->acceptFriendRequest($user);
-        return redirect()->back();
-    }
-
     public function rejectFriendRequest(User $user)
     {
         $authUser = auth()->user();
@@ -112,6 +104,12 @@ class FriendshipController extends Controller
         return redirect()->back();
     }
 
+    public function acceptFriendRequest(User $user)
+    {
+        $authUser = auth()->user();
+        $authUser->acceptFriendRequest($user);
+        return redirect()->back();
+    }
     
 
 }
