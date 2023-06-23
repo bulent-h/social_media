@@ -37,8 +37,7 @@ export default function ViewStory({ user, stories }) {
                     <div className="bg-gray-800 relative  rounded-2xl shadow-lg w-full h-full" style={{ width: '30em' }}>
                         <div onClick={() => handleNext()} className="absolute inset-y-0 -right-10 bg-transparent z-10 flex items-center" >
                             <p className=' text-3xl font-bold text-gray-200 cursor-pointer'>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
+                                <svg xmlns="http://www.w3.org/2000/svg"
                                     className="icon icon-tabler icon-tabler-chevron-right"
                                     width={24}
                                     height={24}
@@ -56,8 +55,7 @@ export default function ViewStory({ user, stories }) {
                         </div >
                         <div onClick={() => handlePrev()} className="absolute inset-y-0 -left-10 bg-transparent z-10 flex items-center" >
                             <p className=' text-3xl font-bold text-gray-200 cursor-pointer'>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
+                                <svg xmlns="http://www.w3.org/2000/svg"
                                     className="icon icon-tabler icon-tabler-chevron-left"
                                     width={24}
                                     height={24}
