@@ -20,10 +20,6 @@ const UserShow = () => {
         });
     };
     
-
-
-
-
     const handleRemoveFriend = () => {
         Inertia.delete(`/friendship/remove/${user.id}`);
     };
@@ -56,9 +52,8 @@ const UserShow = () => {
         setDropdownOpen(false);
     };
 
-
-
     return (
+        
         <AuthenticatedLayout>
             <Head title={`${user.name}'s Profile`} />
             <div className='flex border-b-2 border-gray-100 items-center'>
@@ -71,7 +66,6 @@ const UserShow = () => {
                         style={{ backgroundImage: `url(/storage/${user.avatar})` }}
                     >
                     </div>
-
                     <h1 className="text-xl font-bold mb-2">{user.name}</h1>
                     <p className="text-lg mb-4">{user.bio}</p>
                 </div>

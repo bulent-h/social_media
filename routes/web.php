@@ -98,6 +98,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/comment/{postId}', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('/posts/{postId}', [PostController::class, 'destroy'])->name('post.destroy');
 
+    Route::get('/my-friends', [FriendshipController::class, 'showFriends'])->name('user.showFriends');
+    Route::get('/friend-requests', [FriendshipController::class, 'getFriendRequests']);
+
 
 
 });

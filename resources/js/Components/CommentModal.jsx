@@ -12,7 +12,8 @@ const CommentModal = ({ show, comments, handleClose, handleSubmit, post }) => {
 
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+       
+        <div className="fixed inset-0 flex items-center justify-center z-50 ">
             <div className="modal-content bg-white w-3/4 md:w-1/2 lg:w-1/3 p-6 rounded-lg shadow-lg relative">
                 <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-700" onClick={handleClose}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
@@ -51,6 +52,8 @@ const CommentModal = ({ show, comments, handleClose, handleSubmit, post }) => {
 
             </div>
         </div>
+        
+        
     );
 };
 

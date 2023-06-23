@@ -14,9 +14,9 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen space-y-6">
+    <div className="relative flex min-h-screen space-y-6 ">
       {/* Sidebar */}
-      <div className="object-none object-left bg-white text-purple-700 w-20 lg:w-full space-y-6 px-2 inset-y-0 left-0 border-r-2 border-gray-200 2xl:relative lg:mx-auto">
+      <div className="object-none object-left bg-white text-purple-700 w-20 lg:w-full space-y-6 px-2 inset-y-0 left-0 border-r-2 border-gray-200 2xl:relative lg:mx-auto overflow-y-auto">
 
         <div className="flex mt-6 justify-center">
           <Link href="/">
@@ -79,7 +79,7 @@ const Sidebar = () => {
 
           <div>
             <Link
-              href="/chat"
+              href={route('user.showFriends')}
               className={`group flex item-center py-3 px-4 space-x-2 py-4 hover:bg-purple-700 rounded hover:text-white transition duration-200 font-bold ${url === '/chat' ? 'bg-purple-700 text-white' : ''
                 }`}
             >

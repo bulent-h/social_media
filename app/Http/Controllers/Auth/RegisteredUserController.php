@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
                 'required',
                 'string',
                 'max:255',
-                'regex:/^[a-zA-Z0-9._]+$/',
+                'regex:/^[a-z0-9._]+$/',
                 'unique:users',
                 Rule::notIn($this->reservedUsernames()),
             ],

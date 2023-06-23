@@ -3,6 +3,7 @@ import axios from 'axios';
 import { format, formatDistanceToNow } from 'date-fns';
 import CommentModal from './CommentModal';
 import { Inertia } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/react';
 
 const ImageModal = ({ image_path, handleClose }) => {
     return (
@@ -159,20 +160,24 @@ const Post = ({ user, auth, initialPost }) => {
     return (
         <div key={post.id} className="border-b bg-white">
             <div className='flex justify-between space-x-4 p-4 pb-0'>
-                <div className='flex space-x-4'>
-                    <div
-                        className="bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full mb-4"
-                        style={{ backgroundImage: `url(/storage/${user.avatar})` }}
-                    >
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="flex items-center space-x-2 mb-2">
-                            <h3 className="text-lg font-semibold">{user.name}</h3>
-                            <span className="text-gray-500">@{user.username}  •</span>
-                            <span className="text-gray-400">{formattedDate}</span>
+                <Link href={`/users/${user.id}`}>
+                    <div className='flex space-x-4'>
+                        <div
+                            className="bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full mb-4"
+                            style={{ backgroundImage: `url(/storage/${user.avatar})` }}
+                        >
+                        </div>
+                        <div className="flex flex-col">
+
+                            <div className="flex items-center space-x-2 mb-2">
+                                <h3 className="text-lg font-semibold">{user.name}</h3>
+                                <span className="text-gray-500">@{user.username}  •</span>
+                                <span className="text-gray-400">{formattedDate}</span>
+                            </div>
+
                         </div>
                     </div>
-                </div>
+                </Link>
                 <div className="relative">
                     {user.id === auth.id && (
                         <button type="button" className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black" id="options-menu" aria-haspopup="true" aria-expanded="true" onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}>
