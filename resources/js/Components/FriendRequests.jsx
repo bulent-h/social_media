@@ -46,7 +46,15 @@ export default function FriendRequests() {
                             <div className="text-xs text-gray-500">@{request.username}</div>
                         </div>
                     </div>
-                    
+                    <div className="ml-auto">
+                        <button
+                            className="text-xs text-blue-600 hover:text-blue-800"
+                            onClick={() => handleAcceptRequest(request.id)}
+                        >
+                            Accept
+                        </button>
+                        
+                    </div>
                 </div>
             ))}
         </div>
