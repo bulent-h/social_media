@@ -56,18 +56,18 @@ const UserShow = () => {
         
         <AuthenticatedLayout>
             <Head title={`${user.name}'s Profile`} />
-            <div className='flex border-b-2 border-gray-100 items-center'>
-                <h1 className="text-2xl font-bold m-6 text-purple-700 ">{user.username}</h1>
+            <div className='flex border-b-2 border-gray-100 dark:border-gray-700 items-center'>
+                <h1 className="text-2xl font-bold m-6 text-purple-700 dark:text-white ">{user.username}</h1>
             </div>
-            <div className="flex flex-col justify-center md:flex md:flex-row items-center mt-6 md:justify-between border-b-2 border-gray-100 ">
+            <div className="flex flex-col justify-center md:flex md:flex-row items-center mt-6 md:justify-between border-b-2 border-gray-100 dark:border-gray-700">
                 <div className='md:ml-6 flex flex-col justify-center'>
                     <div
                         className="bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-24 h-24 rounded-full mb-4"
                         style={{ backgroundImage: `url(/storage/${user.avatar})` }}
                     >
                     </div>
-                    <h1 className="text-xl font-bold mb-2">{user.name}</h1>
-                    <p className="text-lg mb-4">{user.bio}</p>
+                    <h1 className="text-xl font-bold mb-2 dark:text-white">{user.name}</h1>
+                    <p className="text-lg mb-4 dark:text-gray-200">{user.bio}</p>
                 </div>
                 <div className='flex items-center'>
 
@@ -121,7 +121,7 @@ const UserShow = () => {
                     </div>
                     <div className="relative inline-block text-left ">
                         {auth.id !== user.id && (
-                            <button type="button" className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black" id="options-menu" aria-haspopup="true" aria-expanded="true" onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}>
+                            <button type="button" className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black dark:text-white" id="options-menu" aria-haspopup="true" aria-expanded="true" onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}>
                                 •••
                             </button>
                         )}
