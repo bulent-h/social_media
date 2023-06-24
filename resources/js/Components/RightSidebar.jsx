@@ -1,8 +1,9 @@
 import React from 'react';
 import { usePage } from '@inertiajs/react';
+import { useState,useEffect } from 'react';
 import { FiSettings, FiBell, FiMessageCircle, FiUser } from 'react-icons/fi';
 import FriendRequests from './FriendRequests';
-
+import Friends from '@/Components/Friends'
 export default function RightSidebar() {
     const { url } = usePage();
 
@@ -36,9 +37,20 @@ export default function RightSidebar() {
                         <FiUser size={24} className="transform hover:scale-110" />
                     </a>
                 </div>
-            </div><div className="h-64">
+
+
+
+
+            </div>
+            <div className='mt-16'>
+            {url != '/my-friends' &&  <Friends/>}
+            </div>
+            <div className="h-64">
                 {url === '/my-friends' && <FriendRequests />}
             </div>
+
+
+
         </>
     );
 };

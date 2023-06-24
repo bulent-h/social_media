@@ -10,7 +10,6 @@ export default function Home({ auth }) {
     const updateUserStatus = async (status) => {
         try {
             await axios.post(route('status.update'), { status });
-            console.log('User status updated successfully');
         } catch (error) {
             console.error('Failed to update user status', error);
         }

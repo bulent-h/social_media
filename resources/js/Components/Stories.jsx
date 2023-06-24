@@ -30,10 +30,8 @@ export default function Stories() {
                 axios.get(route('stories.get')),
                 axios.get(route('mystories.get')),
             ]);
-
             setUsers(storiesResponse.data);
             setMystories(myStoriesResponse.data);
-            console.log(myStoriesResponse.data);
         } catch (err) {
             console.error(err);
         }

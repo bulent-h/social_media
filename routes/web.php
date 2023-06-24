@@ -103,6 +103,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/my-friends', [FriendshipController::class, 'showFriends'])->name('user.showFriends');
     Route::get('/friend-requests', [FriendshipController::class, 'getFriendRequests']);
+    Route::get('/get-myfriends', [FriendshipController::class, 'getFriends'])->name('user.getFriends');
+
 
 
 

@@ -214,7 +214,7 @@ export default function MessageContainer({ messages }) {
                 </div >
                 {/* <!-- Messages --> */}
 
-                < div className="flex-1 overflow-auto bg-gray-200  dark:bg-gray-700" >
+                < div className="flex-1 overflow-auto bg-gray-200  dark:bg-black" >
 
                     <div className="py-2 px-3 ">
                         {/* <!-- Message --> */}

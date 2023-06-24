@@ -60,6 +60,36 @@ class FriendshipController extends Controller
             'friends' => $friends,
         ]);
     }
+    public function getFriends()
+    {
+
+        $userId = auth()->user()->id;
+
+        $friends = Friendship::where(function ($query) use ($userId) {
+            $query->where('requester', $userId)
+                ->orWhere('user_requested', $userId);
+        })->where('status', 1)
+            ->get()
+            ->map(function ($friendship) use ($userId) {
+                if ($friendship->requester === $userId) {
+                    $friendId = $friendship->user_requested;
+                } else {
+                    $friendId = $friendship->requester;
+                }
+
+                $friend = User::find($friendId);
+
+                return [
+                    'id' => $friend->id,
+                    'name' => $friend->name,
+                    'username' => $friend->username,
+                    'avatar' => $friend->avatar,
+                    'status'=>$friend->status
+                ];
+            });
+
+        return ['friends' => $friends];
+    }
 
     public function sendFriendRequest(User $user)
     {
@@ -110,6 +140,6 @@ class FriendshipController extends Controller
         $authUser->rejectFriendRequest($user);
         return redirect()->back();
     }
-    
+
 
 }

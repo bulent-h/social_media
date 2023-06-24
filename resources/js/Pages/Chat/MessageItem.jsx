@@ -277,7 +277,6 @@ export default function MessageItem({ message }) {
                             className=" rounded-lg bg-contain bg-cover"
                             style={{
                                 backgroundImage: `url(storage/${message.media_content_path})`,
-                                backgroundSize: 'cover',
                                 backgroundSize: 'contain',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundPosition: 'center',
