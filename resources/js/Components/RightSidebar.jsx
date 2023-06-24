@@ -36,6 +36,7 @@ export default function RightSidebar() {
                         <FiUser size={24} className="transform hover:scale-110" />
                     </a>
                 </div>
+                
             </div><div className="h-64">
                 {url === '/my-friends' && <FriendRequests />}
             </div>
