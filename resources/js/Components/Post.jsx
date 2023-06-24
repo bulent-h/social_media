@@ -158,7 +158,7 @@ const Post = ({ user, auth, initialPost }) => {
     }
 
     return (
-        <div key={post.id} className="border-b bg-white">
+        <div key={post.id} className="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
             <div className='flex justify-between space-x-4 p-4 pb-0'>
                 <Link href={`/users/${user.id}`}>
                     <div className='flex space-x-4'>
@@ -170,9 +170,9 @@ const Post = ({ user, auth, initialPost }) => {
                         <div className="flex flex-col">
 
                             <div className="flex items-center space-x-2 mb-2">
-                                <h3 className="text-lg font-semibold">{user.name}</h3>
-                                <span className="text-gray-500">@{user.username}  •</span>
-                                <span className="text-gray-400">{formattedDate}</span>
+                                <h3 className="text-lg font-semibold dark:text-white">{user.name}</h3>
+                                <span className="text-gray-500 dark:text-gray-200">@{user.username}  •</span>
+                                <span className="text-gray-400 ">{formattedDate}</span>
                             </div>
 
                         </div>
@@ -180,7 +180,7 @@ const Post = ({ user, auth, initialPost }) => {
                 </Link>
                 <div className="relative">
                     {user.id === auth.id && (
-                        <button type="button" className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black" id="options-menu" aria-haspopup="true" aria-expanded="true" onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}>
+                        <button type="button" className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black dark:text-gray-100" id="options-menu" aria-haspopup="true" aria-expanded="true" onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}>
                             •••
                         </button>
                     )}
@@ -243,7 +243,7 @@ const Post = ({ user, auth, initialPost }) => {
                 </div> */}
 
             </div>
-            <div className="text-gray-600 px-16 ml-4 -mt-4 font-bold mb-4">{post.content}</div>
+            <div className="text-gray-600 px-16 ml-4 -mt-4 font-bold mb-4 dark:text-gray-100">{post.content}</div>
             <div className='flex justify-center'>
                 {post.type === 'image' && post.image_path &&
                     <div
@@ -307,10 +307,10 @@ const Post = ({ user, auth, initialPost }) => {
                 }
             </div>
             <div className='flex mx-5'>
-                <div className='text-gray-500 tracking-wider mr-3'>{post.likes_count} Likes</div>
-                <div onClick={() => openModal(post.id)} className='text-gray-500 cursor-pointer hover:underline tracking-wider'> {post.comments_count} Comments</div>
+                <div className='text-gray-500 tracking-wider mr-3 dark:text-gray-200'>{post.likes_count} Likes</div>
+                <div onClick={() => openModal(post.id)} className='text-gray-500 cursor-pointer hover:underline tracking-wider dark:text-gray-200'> {post.comments_count} Comments</div>
             </div>
-            <div className='flex items-center justify-around px-10 border-t border-gray-100'>
+            <div className='flex items-center justify-around px-10 border-t border-gray-100 dark:border-gray-700'>
                 <div>
                     <button
                         className="flex text-purple-500 hover:text-purple-800 transition duration-150 ease-in-out mr-2 "
@@ -330,7 +330,7 @@ const Post = ({ user, auth, initialPost }) => {
                                 </svg>
                             )}
                         </div>
-                        <div className='m-2 tracking-widest font-bold'>Like</div>
+                        <div className='m-2 tracking-widest font-bold dark:text-gray-200'>Like</div>
                     </button>
                 </div>
                 <div>
@@ -347,7 +347,7 @@ const Post = ({ user, auth, initialPost }) => {
                                 <path d="M16 11l0 .01"></path>
                             </svg>
                         </div>
-                        <div className='m-2 tracking-widest font-bold'>Comment</div>
+                        <div className='m-2 tracking-widest font-bold dark:text-gray-200'>Comments</div>
                     </button>
                 </div>
 
