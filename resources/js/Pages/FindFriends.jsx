@@ -77,7 +77,7 @@ const FindFriends = () => {
                                 </div>
                             )} */}
                             {searchResults.length === 0 ? (
-                                <p className='mt-4'>No users found.</p>
+                                <p className='mt-4 dark:text-white'>No users found.</p>
                             ) : (
                                 <ul >
                                     {searchResults.map((user) => (
@@ -88,8 +88,8 @@ const FindFriends = () => {
                                                     style={{ backgroundImage: `url(storage/${user.avatar})` }}
                                                 ></div>
                                                 <div>
-                                                    <p className="font-bold">{user.username}</p>
-                                                    <p>{user.name}</p>
+                                                    <p className="font-bold dark:text-white">{user.username}</p>
+                                                    <p className='dark:text-gray-200'>{user.name}</p>
                                                 </div>
                                             </a>
                                         </li>
