@@ -20,8 +20,8 @@ const FriendCard = ({ user }) => {
                         style={{ backgroundImage: `url(storage/${user.avatar})` }}
                     ></div>
                     <div>
-                        <h2 className="text-lg font-bold">{user.name}</h2>
-                        <p className="text-gray-500">@{user.username}</p>
+                        <h2 className="text-lg font-bold dark:text-white">{user.name}</h2>
+                        <p className="text-gray-500 dark:text-gray-200">@{user.username}</p>
                     </div>
                 </div>
             </Link>
