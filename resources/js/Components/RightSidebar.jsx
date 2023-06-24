@@ -9,7 +9,7 @@ export default function RightSidebar() {
 
     return (
         <>
-            <div className="items-center justify-center h-12 bg-gradient-to-br from-purple-800 to-cyan-200 rounded-full mx-4">
+            <div className="items-center justify-center h-12 bg-gradient-to-br from-purple-800 to-cyan-200 rounded-full mx-4 dark:bg-white">
                 {/* Upper Part */}
                 <div className="flex items-center justify-center mb-12 ">
                     <a
