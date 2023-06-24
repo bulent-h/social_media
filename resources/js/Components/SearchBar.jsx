@@ -17,7 +17,7 @@ const SearchBar = ({ searchTerm, onSearchTermChange, className }) => {
           placeholder="Search..."
           value={searchTerm}
           onChange={handleInputChange}
-          className="py-1 pl-3 pr-9 w-full bg-opacity-60 drop-shadow-2xl appearance-none overflow-hidden text-center rounded-full bg-gray-300 text-black border-gray-300 focus:ring-purple-700 shadow-sm"
+          className="py-1 pl-3 pr-9 w-full bg-opacity-60 drop-shadow-2xl appearance-none overflow-hidden text-center rounded-full bg-gray-300 dark:bg-gray-100 text-black border-gray-300 focus:ring-purple-700 shadow-sm"
         />
         <button
           type="button"

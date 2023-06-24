@@ -29,9 +29,9 @@ export default function FriendRequests() {
 
     return (
         <div className="flex flex-col items-center mt-10">
-            <h2 className="text-lg font-semibold mb-2">Friend Requests</h2>
+            <h2 className="text-lg font-semibold mb-2 dark:text-white">Friend Requests</h2>
             {requests.map((request) => (
-                <div key={request.id} className="flex items-center mb-2 space-x-4 p-1 border-b border-gray-100">
+                <div key={request.id} className="flex items-center mb-2 space-x-4 p-2 border-b border-gray-100 dark:border-gray-500">
                     <div className='flex items-center'>
                         <Link href={`/users/${request.id}`} className="mr-2">
                             <div
@@ -40,21 +40,21 @@ export default function FriendRequests() {
                             ></div>
                         </Link>
                         <div>
-                            <Link href={`/users/${request.id}`} className="text-xs font-semibold">
+                            <Link href={`/users/${request.id}`} className="text-xs font-semibold dark:text-white">
                                 {request.name}
                             </Link>
-                            <div className="text-xs text-gray-500">@{request.username}</div>
+                            <div className="text-xs text-gray-500 dark:text-gray-200">@{request.username}</div>
                         </div>
                     </div>
                     <div className="ml-auto">
                         <button
-                            className="text-xs text-blue-600 hover:text-blue-800"
+                            className="text-xs text-blue-600 hover:text-blue-800 dark:text-white"
                             onClick={() => handleAcceptRequest(request.id)}
                         >
                             Accept
                         </button>
                         <button
-                            className="text-xs text-red-600 hover:text-red-800 ml-2"
+                            className="text-xs text-red-600 hover:text-red-800 ml-2 dark:text-red-500"
                             onClick={() => handleRejectRequest(request.id)}
                         >
                             Reject
