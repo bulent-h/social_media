@@ -20,7 +20,7 @@ export default function AuthenticatedLayout({ children }) {
         <div className="block hidden w-0 lg:w-64 lg:border-l-2 border-gray-200 dark:border-gray-700 lg:flex flex-col ">
           {/* Additional content */}
           {/* Replace the placeholder content below with your desired content */}
-          <div className="bg-white py-4 flex-1 dark:bg-gray-900">
+          <div className="bg-white py-4 flex-1 dark:bg-gray-900 overflow-y-auto">
             <RightSidebar />
           </div>
         </div>

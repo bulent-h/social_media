@@ -14,7 +14,6 @@ export default function RightSidebar() {
         axios.get(route('user.getFriends'))
             .then(data => {
                 setFriends(data.data.friends);
-                console.log(data.data.friends);
             })
             .catch(error => console.error('There has been a problem with your fetch operation:', error));
     }, []);
@@ -22,7 +21,7 @@ export default function RightSidebar() {
     return (
         <>
             <div className="flex flex-col items-center mt-10">
-                <h2 className="text-lg font-semibold mb-2 ">Friends</h2>
+                <h2 className="text-lg font-semibold mb-2 dark:text-gray-200">Friends</h2>
 
                 <div>
                     {(friends) &&
@@ -36,7 +35,7 @@ export default function RightSidebar() {
                                         <div
                                             id='profile-image'
                                             className=" bg-center bg-cover bg-no-repeat bg-gray-200 dark:bg-gray-400 bg-origin-padding w-12 h-12 rounded-full"
-                                            style={(friend.avatar) && { backgroundImage: `url(/storage/${user.avatar})` }}>
+                                            style={(friend.avatar) && { backgroundImage: `url(/storage/${friend.avatar})` }}>
                                         </div>
                                         <div className='flex justify-end '>
 

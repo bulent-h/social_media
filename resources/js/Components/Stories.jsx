@@ -41,13 +41,13 @@ export default function Stories() {
     }, [])
 
     return (
-        < div className="sticky top-0 bg-white py-1 px-4 z-50 border-b-2 overflow-x-auto" >
+        < div className="sticky top-0 bg-white py-1 px-4 z-50 border-b-2 overflow-x-auto dark:bg-gray-800" >
             <div className='flex  '>
 
 
-                <div className='shrink-0 m-2 border-2 h-16 w-16  rounded-full '>
+                <div className='shrink-0 m-2 border-2 h-16 w-16 rounded-full dark:bg-gray-200'>
                     <a href={route('story.create')}>
-                        <div className='opacity-25 h-full flex items-center justify-center'
+                        <div className='opacity-25 h-full flex items-center justify-center '
 
                             style={{ fontSize: '35px' }}>✚</div>
                     </a>

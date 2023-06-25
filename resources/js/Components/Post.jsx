@@ -201,47 +201,6 @@ const Post = ({ user, auth, initialPost }) => {
                     )}
                 </div>
 
-
-
-                {/* <div className="relative inline-block text-left ">
-                    <button
-                        type="button"
-                        className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-none text-sm font-medium text-gray-600 hover:text-black"
-                        id="options-menu"
-                        aria-haspopup="true"
-                        aria-expanded="true"
-                        onClick={dropdownOpen ? handleCloseDropdown : handleOpenDropdown}
-                    >
-                        •••
-                    </button>
-
-                    {dropdownOpen && (
-                        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                            <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                {authUserId === postUserId ? (
-                                    <a
-                                        href="#"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                        role="menuitem"
-                                        onClick={handleDeletePost}
-                                    >
-                                        Delete Post
-                                    </a>
-                                ) : (
-                                    <a
-                                        href="#"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                        role="menuitem"
-                                        onClick={handleReportPost}
-                                    >
-                                        Report
-                                    </a>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                </div> */}
-
             </div>
             <div className="text-gray-600 px-16 ml-4 -mt-4 font-bold mb-4 dark:text-gray-100">{post.content}</div>
             <div className='flex justify-center'>
