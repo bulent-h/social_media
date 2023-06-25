@@ -36,6 +36,7 @@ export default function Home({ auth }) {
         axios.get('/friends-posts')
             .then(response => {
                 setPosts(response.data.posts);
+                console.log(response.data);
             })
             .catch(error => {
                 console.error('Failed to fetch posts', error);

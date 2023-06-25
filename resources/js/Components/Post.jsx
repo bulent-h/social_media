@@ -225,7 +225,7 @@ const Post = ({ user, auth, initialPost }) => {
             <div className=''>
                 {post.type === 'poll' && post.polls.length > 0 && post.polls[0].options &&
                     <div className="flex flex-col justify-center items-start w-10/12 mx-auto p-4 rounded-xl ">
-                        <div className="text-lg font-semibold mb-4 ml-6">{post.polls[0].question}</div>
+                        <div className="text-lg font-semibold mb-4 ml-6 dark:text-white">{post.polls[0].question}</div>
                         {post.polls[0].options.map((option, index) => {
                             // Determine if the current user has voted for this option
                             let userHasVoted = option.votes.some(vote => vote.user.id === auth.id);

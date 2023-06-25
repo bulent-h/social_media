@@ -162,7 +162,11 @@ class FriendshipController extends Controller
 
         // Fetch the posts of the friends and the authenticated user
         $posts = Post::whereIn('user_id', $friendIds)
-            ->with('user')
+            ->with([
+                'user',
+                'polls.options.votes.user' // Eager load polls, options and votes
+            ])
+            ->withCount('comments')
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($post) {
@@ -179,6 +183,7 @@ class FriendshipController extends Controller
 
         return ['posts' => $posts];
     }
+
 
 
 
