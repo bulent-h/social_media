@@ -14,11 +14,20 @@ return new class extends Migration
     {
         Schema::create('friendships', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('requester');
-            $table->bigInteger('user_requested');
+            $table->unsignedBigInteger('requester');
+            $table->unsignedBigInteger('user_requested');
             $table->tinyInteger('status')->default(0); // 0 for pending, 1 for accepted
             $table->timestamps();
+        
+            // Foreign key constraints
+            $table->foreign('requester')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_requested')->references('id')->on('users')->onDelete('cascade');
+        
+            // Indexes
+            $table->index('requester');
+            $table->index('user_requested');
         });
+        
     }
 
     /**

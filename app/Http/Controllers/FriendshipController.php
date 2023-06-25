@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Friendship;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -84,7 +85,7 @@ class FriendshipController extends Controller
                     'name' => $friend->name,
                     'username' => $friend->username,
                     'avatar' => $friend->avatar,
-                    'status'=>$friend->status
+                    'status' => $friend->status
                 ];
             });
 
@@ -140,6 +141,45 @@ class FriendshipController extends Controller
         $authUser->rejectFriendRequest($user);
         return redirect()->back();
     }
+
+    public function getFriendsPosts()
+    {
+        $userId = auth()->user()->id;
+
+        // Get the list of friend IDs
+        $friendships = Friendship::where(function ($query) use ($userId) {
+            $query->where('requester', $userId)
+                ->orWhere('user_requested', $userId);
+        })->where('status', 1)
+            ->get();
+
+        $friendIds = $friendships->map(function ($friendship) use ($userId) {
+            return $friendship->requester === $userId ? $friendship->user_requested : $friendship->requester;
+        });
+
+        // Add the authenticated user's ID to the list
+        $friendIds[] = $userId;
+
+        // Fetch the posts of the friends and the authenticated user
+        $posts = Post::whereIn('user_id', $friendIds)
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($post) {
+                return [
+                    'post' => $post,
+                    'user' => [
+                        'id' => $post->user->id,
+                        'name' => $post->user->name,
+                        'username' => $post->user->username,
+                        'avatar' => $post->user->avatar,
+                    ],
+                ];
+            });
+
+        return ['posts' => $posts];
+    }
+
 
 
 }
