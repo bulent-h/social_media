@@ -30,4 +30,16 @@ class ProfileUpdateRequest extends FormRequest
             'file'=>['mimes:jpg,bmp,png','nullable'],
         ];
     }
+
+    /**
+     * Get a list of reserved usernames.
+     *
+     * @return array<string>
+     */
+    protected function reservedUsernames(): array
+    {
+        // You can add more reserved usernames to this array
+        return ['admin', 'root', 'system'];
+    }
 }
+
